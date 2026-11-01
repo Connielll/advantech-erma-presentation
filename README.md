@@ -25,9 +25,14 @@
    - 🖥️ **全螢幕模式**：按 `F` 鍵或點擊右上角按鈕一鍵進入劇院全螢幕模式。
    - 📑 **縮圖總覽導航**：按 `O` 鍵或點擊「總覽」可喚出視覺化 11 頁縮圖網格，點擊任意卡片瞬時切換。
    - 📱 **RWD 響應式與觸控手勢**：支援行動裝置與平板左右滑動（Swipe）手勢翻頁。
-3. **內建「互動式 eRMA 快速判定輔助機」（Slide 10）**
+3. **AI 生成高質感工業視覺強化（High-Tech Industrial Visuals）**
+   - 🖼️ **封面旗艦機箱（Slide 01）**：`assets/images/ipc_hero_cover.jpg` 呈現冷鈦金屬機箱、PCB 模組與 Advantech 工控環境。
+   - 🚀 **特急調撥備品（Slide 03）**：`assets/images/doa_cross_shipment.jpg` 呈現 30 天 DOA Cross-Shipment 自動化物流調度。
+   - ⚡ **ESD 防護包裝（Slide 07）**：`assets/images/esd_packaging_guide.jpg` 呈現工程師佩戴靜電手環、金屬遮蔽防靜電袋與防震發泡箱操作。
+   - 🔬 **失效分析實驗室（Slide 09）**：`assets/images/fa_inspection_lab.jpg` 呈現光學顯微鏡、示波器晶片訊號量測與 Root Cause 診斷。
+4. **內建「互動式 eRMA 快速判定輔助機」（Slide 10）**
    - 即時選擇「購買時間」、「故障狀態」、「是否近期返修」，系統依據官方政策演算法即時判讀屬於 **DOA / 保固內 / 過保 / 排除條款**，並標示**運費歸屬**與**標準處置建議**。
-4. **完全獨立零相依（Zero Dependency）**
+5. **完全獨立零相依（Zero Dependency）**
    - 無需安裝 Node.js 或第三方龐大框架，純原生單一 HTML 檔案，離線雙擊即可瀏覽。
 
 ---

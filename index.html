@@ -829,9 +829,81 @@
       color: #fff;
     }
 
+    /* IPC Image Component */
+    .ipc-img-box {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: #08101d;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ipc-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .ipc-img-box:hover img {
+      transform: scale(1.02);
+    }
+
+    .ipc-img-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(11, 17, 30, 0.88);
+      border: 1px solid var(--adv-blue);
+      backdrop-filter: blur(8px);
+      color: var(--accent-cyan);
+      font-family: var(--mono-font);
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 2;
+    }
+
+    .ipc-img-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(8, 16, 29, 0.95) 45%);
+      padding: 10px 14px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono-font);
+      font-size: 11px;
+      color: var(--text-sub);
+      border-top: 1px solid rgba(41, 57, 86, 0.4);
+      z-index: 2;
+    }
+
+    .ipc-img-footer span.highlight {
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    .cover-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      align-items: center;
+      height: 100%;
+    }
+
     /* Responsive */
     @media (max-width: 900px) {
-      .grid-4, .grid-3, .grid-2, .cover-stats-row, .flow-steps, .calculator-layout {
+      .grid-4, .grid-3, .grid-2, .cover-stats-row, .flow-steps, .calculator-layout, .cover-grid {
         grid-template-columns: 1fr;
       }
       .slide {
@@ -879,8 +951,8 @@
 
     <!-- SLIDE 1: Cover -->
     <section class="slide active" data-slide="1">
-      <div class="cover-layout">
-        <div class="cover-title-group">
+      <div class="cover-grid">
+        <div class="cover-left">
           <div class="cover-badge">
             <span>● IPC INDUSTRIAL SPECIFICATION</span>
             <span>|</span>
@@ -888,24 +960,38 @@
           </div>
           <h1 class="cover-h1">研華科技 eRMA<br>全球服務與保固政策解析</h1>
           <p class="cover-lead">工業電腦（IPC）全生命週期返修作業指南：保固權益、DOA 快速更換條款、雙向 DAP 運費分攤、維修時效與報廢規章。</p>
+
+          <div class="cover-stats-row">
+            <div class="cover-stat-item">
+              <div class="cover-stat-val">30 Days</div>
+              <div class="cover-stat-lbl">DOA 新品不良換貨期限</div>
+            </div>
+            <div class="cover-stat-item">
+              <div class="cover-stat-val">DAP</div>
+              <div class="cover-stat-lbl">Incoterms 雙向運送標準</div>
+            </div>
+            <div class="cover-stat-item">
+              <div class="cover-stat-val">10 + 10</div>
+              <div class="cover-stat-lbl">報價 10 天 / 確認 10 天</div>
+            </div>
+            <div class="cover-stat-item">
+              <div class="cover-stat-val">3 Months</div>
+              <div class="cover-stat-lbl">同故障免費再發保固期</div>
+            </div>
+          </div>
         </div>
 
-        <div class="cover-stats-row">
-          <div class="cover-stat-item">
-            <div class="cover-stat-val">30 Days</div>
-            <div class="cover-stat-lbl">DOA 新品不良換貨期限</div>
-          </div>
-          <div class="cover-stat-item">
-            <div class="cover-stat-val">DAP</div>
-            <div class="cover-stat-lbl">Incoterms 雙向運送標準</div>
-          </div>
-          <div class="cover-stat-item">
-            <div class="cover-stat-val">10 + 10</div>
-            <div class="cover-stat-lbl">報價 10 天 / 確認 10 天</div>
-          </div>
-          <div class="cover-stat-item">
-            <div class="cover-stat-val">3 Months</div>
-            <div class="cover-stat-lbl">同故障免費再發保固期</div>
+        <div class="cover-right">
+          <div class="ipc-img-box" style="height: 380px;">
+            <div class="ipc-img-tag">
+              <div class="status-led"></div>
+              IPC HARDWARE CHASSIS // ONLINE
+            </div>
+            <img src="assets/images/ipc_hero_cover.jpg" alt="研華工業電腦機箱與電路架構" loading="lazy">
+            <div class="ipc-img-footer">
+              <span class="highlight">ADVANTECH eRMA // INDUSTRIAL SPEC</span>
+              <span>GLOBAL REPAIR</span>
+            </div>
           </div>
         </div>
       </div>
@@ -988,44 +1074,61 @@
       <p class="slide-subtitle">購買初期 30 天內發生功能性故障，啟動 Cross-Shipment（先發後收/同步換貨）加速客戶產線復工。</p>
 
       <div class="grid-2">
-        <div class="ipc-card card-success">
-          <div class="card-header">
-            <div class="card-title">DOA 資格判定與流程</div>
-            <span class="card-badge badge-green">30 DAYS WINDOW</span>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="ipc-card card-success">
+            <div class="card-header">
+              <div class="card-title">DOA 資格判定與流程</div>
+              <span class="card-badge badge-green">30 DAYS WINDOW</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>時效要求</strong>：產品自<strong>購買日起 30 天之內</strong>。</li>
+                <li><strong>購買來源</strong>：必須由研華直接購買，或透過原授權代理經銷管道申請。</li>
+                <li><strong>處理方式</strong>：
+                  <ol style="margin-left: 20px; margin-top: 4px;">
+                    <li><strong>同步換貨（Cross-Shipment）</strong>：研華先發出良品/新品更換。</li>
+                    <li><strong>快速特急維修（Fast Repair）</strong>：若無庫存良品則走最高優先序維修。</li>
+                  </ol>
+                </li>
+                <li><strong>排除條款</strong>：嚴格排除<strong>運送途中外力破損</strong>（Shipping Damage 應向物流索賠）。</li>
+              </ul>
+            </div>
           </div>
-          <div class="card-content">
-            <ul>
-              <li><strong>時效要求</strong>：產品自<strong>購買日起 30 天之內</strong>。</li>
-              <li><strong>購買來源</strong>：必須由研華直接購買，或透過原授權代理經銷管道申請。</li>
-              <li><strong>處理方式</strong>：
-                <ol style="margin-left: 20px; margin-top: 6px;">
-                  <li><strong>同步換貨（Cross-Shipment）</strong>：研華先發出良品/新品更換。</li>
-                  <li><strong>快速特急維修（Fast Repair）</strong>：若無庫存良品則走最高優先序維修。</li>
-                </ol>
-              </li>
-              <li><strong>排除條款</strong>：嚴格排除<strong>運送途中遭受之外力破損（Shipping Damage）</strong>，運損應向物流保險索賠。</li>
-            </ul>
+
+          <div class="ipc-card card-cyan">
+            <div class="card-header">
+              <div class="card-title">DOA 運費研華全額承擔規範</div>
+              <span class="card-badge badge-blue">FREIGHT COVERAGE</span>
+            </div>
+            <div class="card-content">
+              <p style="margin-bottom: 8px;">若符合 DOA 規範，研華承擔<strong>往返雙向運費</strong>（限授權維修中心與原銷售站點路徑）。</p>
+              <div style="background:rgba(255, 61, 87, 0.1); border:1px solid rgba(255, 61, 87, 0.3); padding:8px 12px; border-radius:4px; font-size:12px; color:var(--text-sub);">
+                <span style="color:var(--accent-red); font-weight:600;">⚠️ 注意事項：</span>不涵蓋轉運至第三國或其他未授權站點之額外跨國差價。
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="ipc-card card-cyan">
-          <div class="card-header">
-            <div class="card-title">DOA 運費研華全額承擔規範</div>
-            <span class="card-badge badge-blue">FREIGHT COVERAGE</span>
+        <div style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div class="ipc-img-box" style="height: 270px;">
+            <div class="ipc-img-tag">
+              <div class="status-led"></div>
+              CROSS-SHIPMENT // RAPID DISPATCH
+            </div>
+            <img src="assets/images/doa_cross_shipment.jpg" alt="研華自動化物聯網備品調撥換貨流程" loading="lazy">
+            <div class="ipc-img-footer">
+              <span class="highlight">AUTOMATED LOGISTICS HUB</span>
+              <span>EXPRESS EXCHANGE</span>
+            </div>
           </div>
-          <div class="card-content">
-            <p style="margin-bottom: 12px;">若符合 DOA 規範，研華承擔<strong>往返雙向運費</strong>，但有特定路徑限制：</p>
-            <div style="background:#0f1827; border:1px solid var(--card-border); padding:12px; border-radius:6px; margin-bottom:12px;">
-              <div style="font-family:var(--mono-font); font-size:12px; color:var(--accent-cyan); margin-bottom:4px;">✓ 研華全額吸收之路徑</div>
-              <div style="font-size:12px; color:var(--text-sub);">
-                1. 客戶現場站點 ⇄ 當地研華授權維修中心（Local Facility）<br>
-                2. 客戶原購買地 ⇄ 原研華銷售實體站點（Original Selling Site）
-              </div>
+
+          <div style="background: rgba(0, 112, 186, 0.15); border: 1px solid var(--adv-blue); border-radius: 8px; padding: 14px 18px; margin-top: 14px;">
+            <div style="font-family: var(--mono-font); font-size: 13px; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px;">
+              ⚡ 研華全球備品庫存特急調撥
             </div>
-            <div style="background:rgba(255, 61, 87, 0.1); border:1px solid rgba(255, 61, 87, 0.3); padding:10px; border-radius:6px;">
-              <span style="font-size:12px; color:var(--accent-red); font-weight:600;">⚠️ 注意事項：</span>
-              <span style="font-size:12px; color:var(--text-sub);">不涵蓋轉運至第三國或其他未授權站點之額外跨國差價。</span>
-            </div>
+            <p style="font-size: 12px; color: var(--text-sub); line-height: 1.6;">
+              確認 DOA 申請後，系統自全球 Hub 調撥庫存良品優先派送，無縫銜接產線替換需求，大幅降低工控系統停工損失。
+            </p>
           </div>
         </div>
       </div>
@@ -1218,48 +1321,63 @@
       <h2 class="slide-title">硬體拆裝、防護包裝與海關申報</h2>
       <p class="slide-subtitle">工業電腦零組件脆弱敏感，運送前務必落實防靜電保護、資料備份及海關發票標準格式。</p>
 
-      <div class="grid-3">
-        <div class="ipc-card">
-          <div class="card-header">
-            <div class="card-title">板卡配件拔除原則</div>
-            <span class="card-badge badge-blue">BOARD LEVEL</span>
+      <div class="grid-2">
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="ipc-img-box" style="height: 250px;">
+            <div class="ipc-img-tag">
+              <div class="status-led"></div>
+              ESD SAFE HANDLING // PROTOCOL
+            </div>
+            <img src="assets/images/esd_packaging_guide.jpg" alt="工程師以靜電手環及 ESD 袋進行工控板卡防護包裝" loading="lazy">
+            <div class="ipc-img-footer">
+              <span class="highlight">STATIC SHIELDING & FOAM BOX</span>
+              <span>RMA LABEL REQUIRED</span>
+            </div>
           </div>
-          <div class="card-content">
-            <ul>
-              <li><strong>拆除加裝件</strong>：寄送板卡前，請拔除自行加裝之 CPU、RAM、CF/SD 記憶卡、轉接排線。</li>
-              <li><strong>例外註明</strong>：若懷疑外加元件與故障相關需連帶送測，<strong>務必於申請單詳列件數</strong>，否則遺失研華恕不補償。</li>
-              <li><strong>整機拆卸</strong>：整機若有移除關鍵零件，需於備註載明，以利排查時效。</li>
-            </ul>
+
+          <div class="ipc-card card-cyan">
+            <div class="card-header">
+              <div class="card-title">跨國海關 Invoice 4 要件</div>
+              <span class="card-badge badge-green">CUSTOMS INVOICE</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>1. 無商業價值宣告</strong>：加註 <code>"Invoice for customs purposes only with no commercial value"</code>。</li>
+                <li><strong>2. 低申報價值</strong>：填寫適當低單價，避免高額關稅滯留。</li>
+                <li><strong>3. 完整識別</strong>：列出 RMA No.、產品序號（S/N）及保固狀態。</li>
+                <li><strong>4. 原產地標示</strong>：載明原產國 Country of Origin (COO)。</li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div class="ipc-card">
-          <div class="card-header">
-            <div class="card-title">防靜電與外箱標記</div>
-            <span class="card-badge badge-orange">ESD SAFETY</span>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="ipc-card">
+            <div class="card-header">
+              <div class="card-title">板卡配件拔除原則</div>
+              <span class="card-badge badge-blue">BOARD LEVEL</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>拆除加裝件</strong>：寄送前請拔除自行加裝之 CPU、RAM、CF/SD 記憶卡與轉接排線。</li>
+                <li><strong>例外註明</strong>：若外加元件疑似故障相關需連帶送測，<strong>務必於單據詳列件數</strong>，否則遺失恕不賠償。</li>
+                <li><strong>整機拆卸</strong>：整機若有移除關鍵零件，需於備註載明以利排查。</li>
+              </ul>
+            </div>
           </div>
-          <div class="card-content">
-            <ul>
-              <li><strong>ESD 防靜電保護</strong>：必須使用 ESD 專用防靜電袋或抗靜電泡棉完整封裝，包裝粗糙研華得拒收。</li>
-              <li><strong>外箱粗體標註</strong>：外箱必須以<strong>粗體大字註記 RMA Number</strong>，便於倉庫即時分揀掃描。</li>
-              <li><strong>專人收件</strong>：收件人抬頭指名「Attn: RMA Service Department」。</li>
-            </ul>
-          </div>
-        </div>
 
-        <div class="ipc-card card-cyan">
-          <div class="card-header">
-            <div class="card-title">跨國海關 Invoice 4 要件</div>
-            <span class="card-badge badge-green">CUSTOMS INVOICE</span>
-          </div>
-          <div class="card-content">
-            <p style="font-size:12px; margin-bottom:8px; color:var(--text-main);">針對跨國運送（如歐洲非歐盟區等），Invoice 必須備妥：</p>
-            <ul>
-              <li><strong>1. 無商業價值宣告</strong>：明確印製 <code>"Invoice for customs purposes only with no commercial value"</code>。</li>
-              <li><strong>2. 低申報價值</strong>：填寫適當低單價，避免高額關稅。</li>
-              <li><strong>3. 完整識別</strong>：列出 RMA No.、產品序號（S/N）及保固狀態。</li>
-              <li><strong>4. 原產地標示</strong>：載明原產國 Country of Origin (COO)。</li>
-            </ul>
+          <div class="ipc-card">
+            <div class="card-header">
+              <div class="card-title">防靜電與外箱標記</div>
+              <span class="card-badge badge-orange">ESD SAFETY</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>ESD 防靜電保護</strong>：必須使用 ESD 專用防靜電袋或抗靜電泡棉完整封裝，包裝粗糙研華得拒收。</li>
+                <li><strong>外箱粗體標註</strong>：外箱必須以<strong>粗體大字註記 RMA Number</strong>，便於倉庫即時分揀掃描。</li>
+                <li><strong>專人收件</strong>：收件抬頭指名「Attn: RMA Service Department」。</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -1344,35 +1462,56 @@
       <p class="slide-subtitle">針對已完修出廠之工控硬體提供保固延伸保障，並針對重大品質疑慮提供失效分析（Failure Analysis）機制。</p>
 
       <div class="grid-2">
-        <div class="ipc-card card-success">
-          <div class="card-header">
-            <div class="card-title">完修後 3 個月相同故障免費保固</div>
-            <span class="card-badge badge-green">3 MONTHS RE-WARRANTY</span>
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="ipc-card card-success">
+            <div class="card-header">
+              <div class="card-title">完修後 3 個月相同故障免費保固</div>
+              <span class="card-badge badge-green">3 MONTHS RE-WARRANTY</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>相同症狀免收費</strong>：經研華修復出廠後，<strong>3 個月內再次重現相同故障</strong>，研華無償負責重新修復。</li>
+                <li><strong>防弊除外條款</strong>：若再次損壞係人為濫用、改裝、突波短路或惡劣環境所致，不適用免收費條款。</li>
+                <li><strong>標準維修報告（Repair Report）</strong>：每筆完修工單均隨附檢測結果與零件更換歷程。</li>
+              </ul>
+            </div>
           </div>
-          <div class="card-content">
-            <ul>
-              <li><strong>相同症狀免收費</strong>：經研華修復之產品出廠後，<strong>若於 3 個月內再次發生相同故障現象</strong>，研華無償負責再次修復。</li>
-              <li><strong>防弊除外條款</strong>：若再次損壞原因係因客戶後續人為濫用、未授權改裝、供電短路或現場環境惡劣所致，不適用此免收費條款。</li>
-              <li><strong>標準維修報告（Repair Report）</strong>：每筆工單完修後均隨附標準報告，記錄工單編號、檢測結果、更換零件清單與維修歷程。</li>
-            </ul>
+
+          <div class="ipc-card card-cyan">
+            <div class="card-header">
+              <div class="card-title">失效分析報告（Failure Analysis）</div>
+              <span class="card-badge badge-blue">FA REPORT</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>專案申請</strong>：欲深入追查根本原因（Root Cause），可專案申請 FA 報告。</li>
+                <li><strong>研華審核權</strong>：研華保留受理審核權限，非所有案件均提供晶片級分析。</li>
+                <li><strong>費用責任歸屬</strong>：若判定故障與產品設計/製程無關（如外力擊穿），由客戶負擔調查費。</li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <div class="ipc-card card-cyan">
-          <div class="card-header">
-            <div class="card-title">失效分析報告（Failure Analysis Report）</div>
-            <span class="card-badge badge-blue">FA REPORT</span>
+        <div style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div class="ipc-img-box" style="height: 270px;">
+            <div class="ipc-img-tag">
+              <div class="status-led"></div>
+              FA LAB // CIRCUIT TELEMETRY & DIAGNOSTICS
+            </div>
+            <img src="assets/images/fa_inspection_lab.jpg" alt="研華實驗室工程師以光學顯微鏡與示波器進行失效分析" loading="lazy">
+            <div class="ipc-img-footer">
+              <span class="highlight">MICROSCOPIC INSPECTION</span>
+              <span>ROOT CAUSE VERIFICATION</span>
+            </div>
           </div>
-          <div class="card-content">
-            <ul>
-              <li><strong>申請門檻</strong>：若客戶欲進一步追查深層根本原因（Root Cause），可專案提出 FA 申請。</li>
-              <li><strong>研華評估權</strong>：研華保留是否受理 FA 申請之審查權限，並非所有案件均提供深入晶片級分析。</li>
-              <li><strong>責任歸屬與收費條款</strong>：
-                <p style="margin-top:6px; background:#08101d; padding:8px 12px; border-radius:4px; font-size:12px; color:var(--text-sub);">
-                  經 FA 深入實驗室調查後，<strong>若判定故障根本原因與研華產品設計或製程品質無關</strong>（如外部突波擊穿、客戶週邊干擾），研華將向申請客戶<strong>全額收取調查分析技術服務費</strong>。
-                </p>
-              </li>
-            </ul>
+
+          <div style="background: rgba(0, 210, 255, 0.1); border: 1px solid rgba(0, 210, 255, 0.3); border-radius: 8px; padding: 14px 18px; margin-top: 14px;">
+            <div style="font-family: var(--mono-font); font-size: 13px; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px;">
+              🔬 研華實驗室精密檢驗與責任判定
+            </div>
+            <p style="font-size: 12px; color: var(--text-sub); line-height: 1.6;">
+              透過光學顯微檢測與電氣時序分析定位問題。經判定非原廠製程瑕疵者，將依標準收取技術分析費。
+            </p>
           </div>
         </div>
       </div>
