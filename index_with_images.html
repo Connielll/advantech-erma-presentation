@@ -1,0 +1,1946 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>研華科技 Advantech eRMA 全球服務與保固政策指南 - 工業電腦 IPC 互動簡報</title>
+  <style>
+    :root {
+      --bg-dark: #0b111e;
+      --bg-chassis: #131c2e;
+      --card-bg: #1a253b;
+      --card-border: #293956;
+      --card-hover: #223250;
+      --adv-blue: #0070ba;
+      --adv-blue-glow: rgba(0, 112, 186, 0.4);
+      --accent-cyan: #00d2ff;
+      --accent-green: #00e676;
+      --accent-orange: #ff9100;
+      --accent-red: #ff3d57;
+      --accent-purple: #a855f7;
+      --text-main: #f0f4f8;
+      --text-sub: #94a3b8;
+      --text-dim: #64748b;
+      --grid-line: rgba(41, 57, 86, 0.35);
+      --mono-font: 'JetBrains Mono', 'SF Mono', Consolas, 'Courier New', monospace;
+      --sans-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--sans-font);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      user-select: none;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 112, 186, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 210, 255, 0.08) 0%, transparent 40%),
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+
+    /* Top Industrial Control Header */
+    header.ipc-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: rgba(19, 28, 46, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--adv-blue);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .ipc-logo-badge {
+      display: flex;
+      align-items: center;
+      background: #08101d;
+      border: 1px solid var(--card-border);
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-family: var(--mono-font);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      letter-spacing: 1.5px;
+    }
+
+    .status-led {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 10px var(--accent-green);
+      margin-right: 8px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.9); }
+    }
+
+    .header-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-title span.tag {
+      background: rgba(0, 112, 186, 0.25);
+      color: var(--accent-cyan);
+      border: 1px solid var(--adv-blue);
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-family: var(--mono-font);
+    }
+
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-ipc {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: var(--mono-font);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-ipc:hover {
+      background: var(--adv-blue);
+      border-color: var(--accent-cyan);
+      color: #fff;
+      box-shadow: 0 0 12px var(--adv-blue-glow);
+    }
+
+    .btn-ipc svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* Deck Container */
+    .deck-container {
+      position: absolute;
+      top: 56px;
+      bottom: 60px;
+      left: 0;
+      right: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide {
+      position: absolute;
+      width: 92%;
+      max-width: 1360px;
+      height: 90%;
+      max-height: 800px;
+      background: var(--bg-chassis);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 36px 48px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(24px) scale(0.98);
+      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      overflow-y: auto;
+    }
+
+    .slide::-webkit-scrollbar {
+      width: 6px;
+    }
+    .slide::-webkit-scrollbar-thumb {
+      background: var(--card-border);
+      border-radius: 3px;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+      z-index: 10;
+    }
+
+    /* Slide Header */
+    .slide-tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .slide-category {
+      font-family: var(--mono-font);
+      font-size: 12px;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-category::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent-cyan);
+    }
+
+    .slide-num-badge {
+      font-family: var(--mono-font);
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .slide-num-badge b {
+      color: var(--accent-cyan);
+    }
+
+    h2.slide-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    p.slide-subtitle {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    /* Industrial Layout Cards */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .ipc-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 20px;
+      position: relative;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ipc-card:hover {
+      border-color: var(--adv-blue);
+      background: var(--card-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .ipc-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--adv-blue);
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+
+    .ipc-card.card-success::before { background: var(--accent-green); }
+    .ipc-card.card-warning::before { background: var(--accent-orange); }
+    .ipc-card.card-danger::before { background: var(--accent-red); }
+    .ipc-card.card-cyan::before { background: var(--accent-cyan); }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-badge {
+      font-family: var(--mono-font);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .badge-blue { background: rgba(0, 112, 186, 0.2); color: var(--accent-cyan); border: 1px solid var(--adv-blue); }
+    .badge-green { background: rgba(0, 230, 118, 0.15); color: var(--accent-green); border: 1px solid rgba(0, 230, 118, 0.3); }
+    .badge-orange { background: rgba(255, 145, 0, 0.15); color: var(--accent-orange); border: 1px solid rgba(255, 145, 0, 0.3); }
+    .badge-red { background: rgba(255, 61, 87, 0.15); color: var(--accent-red); border: 1px solid rgba(255, 61, 87, 0.3); }
+
+    .card-content {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-content ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card-content ul li {
+      position: relative;
+      padding-left: 18px;
+      margin-bottom: 8px;
+    }
+
+    .card-content ul li::before {
+      content: '▪';
+      position: absolute;
+      left: 0;
+      color: var(--accent-cyan);
+      font-size: 14px;
+    }
+
+    /* Key Spec Metric Box */
+    .metric-box {
+      background: #0f1827;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 12px;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      font-family: var(--mono-font);
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .metric-value {
+      font-size: 20px;
+      font-family: var(--mono-font);
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    /* Cover Slide Specifics */
+    .cover-layout {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      position: relative;
+    }
+
+    .cover-title-group {
+      max-width: 860px;
+    }
+
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 112, 186, 0.2);
+      border: 1px solid var(--adv-blue);
+      color: var(--accent-cyan);
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-family: var(--mono-font);
+      font-size: 13px;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .cover-h1 {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 30%, var(--accent-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cover-lead {
+      font-size: 18px;
+      color: var(--text-sub);
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+
+    .cover-stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      border-top: 1px solid var(--card-border);
+      padding-top: 24px;
+      margin-top: 16px;
+    }
+
+    .cover-stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cover-stat-val {
+      font-family: var(--mono-font);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .cover-stat-lbl {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* Comparison Table / Matrix */
+    .ipc-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 13px;
+      margin: 12px 0;
+    }
+
+    .ipc-table th {
+      background: #0f1827;
+      color: var(--accent-cyan);
+      font-family: var(--mono-font);
+      font-size: 12px;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+      text-transform: uppercase;
+    }
+
+    .ipc-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(41, 57, 86, 0.4);
+      background: var(--card-bg);
+      color: var(--text-sub);
+    }
+
+    .ipc-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .ipc-table tr:hover td {
+      background: var(--card-hover);
+      color: var(--text-main);
+    }
+
+    .badge-role {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: var(--mono-font);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .role-cust { background: rgba(255, 145, 0, 0.2); color: var(--accent-orange); border: 1px solid rgba(255, 145, 0, 0.4); }
+    .role-adv { background: rgba(0, 230, 118, 0.2); color: var(--accent-green); border: 1px solid rgba(0, 230, 118, 0.4); }
+
+    /* Flow Steps Chart */
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      position: relative;
+      margin: 16px 0;
+    }
+
+    .flow-step-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 18px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .step-badge {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .step-number {
+      font-family: var(--mono-font);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      background: #08101d;
+      border: 1px solid var(--card-border);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .step-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    /* Interactive Calculator / Simulator (Slide 10) */
+    .calculator-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      height: 100%;
+    }
+
+    .calc-input-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .calc-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .calc-label {
+      font-size: 12px;
+      font-family: var(--mono-font);
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .calc-select, .calc-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn-select {
+      background: #0d1524;
+      border: 1px solid var(--card-border);
+      color: var(--text-sub);
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+
+    .btn-select:hover {
+      border-color: var(--adv-blue);
+      color: var(--text-main);
+    }
+
+    .btn-select.active {
+      background: rgba(0, 112, 186, 0.2);
+      border-color: var(--accent-cyan);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .btn-select.active::after {
+      content: '✓';
+      color: var(--accent-green);
+      font-weight: bold;
+    }
+
+    .calc-output-panel {
+      background: #08101d;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
+    }
+
+    .output-header {
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .verdict-status {
+      font-family: var(--mono-font);
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent-green);
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .verdict-status.status-doa { color: var(--accent-green); }
+    .verdict-status.status-warranty { color: var(--accent-cyan); }
+    .verdict-status.status-oow { color: var(--accent-orange); }
+    .verdict-status.status-excluded { color: var(--accent-red); }
+
+    .verdict-details {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .verdict-detail-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 10px 14px;
+      border-radius: 6px;
+    }
+
+    .verdict-detail-item b {
+      color: var(--text-main);
+      display: block;
+      margin-bottom: 2px;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-family: var(--mono-font);
+    }
+
+    /* Bottom Control Bar */
+    footer.ipc-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(19, 28, 46, 0.95);
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+    }
+
+    .progress-bar-container {
+      position: absolute;
+      top: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(41, 57, 86, 0.5);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--adv-blue), var(--accent-cyan));
+      width: 9%;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 8px var(--accent-cyan);
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide-counter {
+      font-family: var(--mono-font);
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .slide-counter b {
+      color: var(--accent-cyan);
+    }
+
+    .shortcut-hints {
+      font-size: 11px;
+      color: var(--text-dim);
+      font-family: var(--mono-font);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .shortcut-hints kbd {
+      background: #08101d;
+      border: 1px solid var(--card-border);
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: var(--accent-cyan);
+    }
+
+    /* Modal Overview Grid */
+    .overview-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 14, 24, 0.92);
+      backdrop-filter: blur(16px);
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      padding: 40px;
+      overflow-y: auto;
+    }
+
+    .overview-modal.open {
+      display: flex;
+    }
+
+    .overview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .overview-thumb {
+      background: var(--bg-chassis);
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .overview-thumb:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 112, 186, 0.3);
+    }
+
+    .overview-thumb.current {
+      border: 2px solid var(--accent-cyan);
+      background: rgba(0, 112, 186, 0.15);
+    }
+
+    .thumb-num {
+      font-family: var(--mono-font);
+      font-size: 11px;
+      color: var(--accent-cyan);
+    }
+
+    .thumb-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* IPC Image Component */
+    .ipc-img-box {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: #08101d;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ipc-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .ipc-img-box:hover img {
+      transform: scale(1.02);
+    }
+
+    .ipc-img-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(11, 17, 30, 0.88);
+      border: 1px solid var(--adv-blue);
+      backdrop-filter: blur(8px);
+      color: var(--accent-cyan);
+      font-family: var(--mono-font);
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 2;
+    }
+
+    .ipc-img-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(8, 16, 29, 0.95) 45%);
+      padding: 10px 14px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono-font);
+      font-size: 11px;
+      color: var(--text-sub);
+      border-top: 1px solid rgba(41, 57, 86, 0.4);
+      z-index: 2;
+    }
+
+    .ipc-img-footer span.highlight {
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    .cover-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      align-items: center;
+      height: 100%;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .grid-4, .grid-3, .grid-2, .cover-stats-row, .flow-steps, .calculator-layout, .cover-grid {
+        grid-template-columns: 1fr;
+      }
+      .slide {
+        padding: 20px;
+        width: 96%;
+        height: 94%;
+      }
+      .shortcut-hints {
+        display: none;
+      }
+      .cover-h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Industrial Control Header -->
+  <header class="ipc-header">
+    <div class="brand-section">
+      <div class="ipc-logo-badge">
+        <div class="status-led"></div>
+        ADVANTECH // eRMA
+      </div>
+      <div class="header-title">
+        <span>Global Service & Warranty Policy</span>
+        <span class="tag">REV 2026.11</span>
+      </div>
+    </div>
+    <div class="header-tools">
+      <a href="index.html" class="btn-ipc" title="點擊切換至純扁平圖表版" style="text-decoration:none; color:var(--accent-green); border-color:rgba(0,230,118,0.4);">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+        純扁平圖表版 ↗
+      </a>
+      <button class="btn-ipc" id="btnOverview" title="按 O 鍵開啟目錄總覽">
+        <svg viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
+        總覽 [O]
+      </button>
+      <button class="btn-ipc" id="btnFullscreen" title="按 F 鍵全螢幕">
+        <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        全螢幕 [F]
+      </button>
+    </div>
+  </header>
+
+  <!-- Deck Main -->
+  <main class="deck-container">
+
+    <!-- SLIDE 1: Cover -->
+    <section class="slide active" data-slide="1">
+      <div class="cover-grid">
+        <div class="cover-left">
+          <div class="cover-badge">
+            <span>● IPC INDUSTRIAL SPECIFICATION</span>
+            <span>|</span>
+            <span>STANDARD OPERATING PROCEDURE</span>
+          </div>
+          <h1 class="cover-h1">研華科技 eRMA<br>全球服務與保固政策解析</h1>
+          <p class="cover-lead">工業電腦（IPC）全生命週期返修作業指南：保固權益、DOA 快速更換條款、雙向 DAP 運費分攤、維修時效與報廢規章。</p>
+
+          <div class="cover-stats-row">
+            <div class="cover-stat-item">
+              <div class="cover-stat-val">30 Days</div>
+              <div class="cover-stat-lbl">DOA 新品不良換貨期限</div>
+            </div>
+            <div class="cover-stat-item">
+              <div class="cover-stat-val">DAP</div>
+              <div class="cover-stat-lbl">Incoterms 雙向運送標準</div>
+            </div>
+            <div class="cover-stat-item">
+              <div class="cover-stat-val">10 + 10</div>
+              <div class="cover-stat-lbl">報價 10 天 / 確認 10 天</div>
+            </div>
+            <div class="cover-stat-item">
+              <div class="cover-stat-val">3 Months</div>
+              <div class="cover-stat-lbl">同故障免費再發保固期</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cover-right">
+          <div class="ipc-img-box" style="height: 380px;">
+            <div class="ipc-img-tag">
+              <div class="status-led"></div>
+              IPC HARDWARE CHASSIS // ONLINE
+            </div>
+            <img src="assets/images/ipc_hero_cover.jpg" alt="研華工業電腦機箱與電路架構" loading="lazy">
+            <div class="ipc-img-footer">
+              <span class="highlight">ADVANTECH eRMA // INDUSTRIAL SPEC</span>
+              <span>GLOBAL REPAIR</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Warranty Framework -->
+    <section class="slide" data-slide="2">
+      <div class="slide-tag-row">
+        <div class="slide-category">Section 01 // Warranty Architecture</div>
+        <div class="slide-num-badge">SLIDE <b>02</b> / 11</div>
+      </div>
+      <h2 class="slide-title">全球保固體系架構</h2>
+      <p class="slide-subtitle">研華依產品屬性劃分全球標準保固與區域客製化服務，確保工業控制硬體在設計、材料與製程上免於缺陷。</p>
+
+      <div class="grid-3">
+        <div class="ipc-card card-cyan">
+          <div class="card-header">
+            <div class="card-title">標準現成產品 (Off-the-shelf)</div>
+            <span class="card-badge badge-blue">GLOBAL</span>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li><strong>涵蓋範圍</strong>：標準工業主機板、單板電腦、邊緣運算裝置、模組化 I/O。</li>
+              <li><strong>全球聯保</strong>：可在全球任何研華授權維修中心受理維修，無跨區加成服務費。</li>
+              <li><strong>起算基準</strong>：自研華<strong>出貨日期（Shipment Date）</strong>起算。</li>
+              <li><strong>第三方零件</strong>：用於組裝標準系統之現成零件亦享同等保障。</li>
+            </ul>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">查詢入口</div>
+            <div class="metric-value" style="font-size:14px; color:#fff;">erma.advantech.com.tw</div>
+          </div>
+        </div>
+
+        <div class="ipc-card card-warning">
+          <div class="card-header">
+            <div class="card-title">客製化產品 (Customized / CTOS)</div>
+            <span class="card-badge badge-orange">REGIONAL</span>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li><strong>涵蓋範圍</strong>：專屬客製化硬體、專案客製 BIOS、特殊機構外殼等。</li>
+              <li><strong>區域維修</strong>：享有<strong>區域保固（Regional Warranty）</strong>服務，通常由原出貨業務分部受理。</li>
+              <li><strong>條款彈性</strong>：實際服務內容嚴格依據個別銷售合約或特定服務等級協議（SLA）為準。</li>
+            </ul>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">依循原則</div>
+            <div class="metric-value" style="font-size:14px; color:#fff;">合約與專案 SLA 條款優先</div>
+          </div>
+        </div>
+
+        <div class="ipc-card card-success">
+          <div class="card-header">
+            <div class="card-title">加值服務包 (Service Packages)</div>
+            <span class="card-badge badge-green">EXTENDED</span>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li><strong>保固展延</strong>：可加購 3 年、5 年至 7 年延長保固（Extended Warranty）。</li>
+              <li><strong>快速維修通道</strong>：Fast-turnaround 保證優先排修時程。</li>
+              <li><strong>現場支援 / 備品池</strong>：針對關鍵任務（Mission-Critical）工業場域提供專屬備品儲備支援。</li>
+            </ul>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">最高保固支援</div>
+            <div class="metric-value">Up to 7 Yrs</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: DOA Policy -->
+    <section class="slide" data-slide="3">
+      <div class="slide-tag-row">
+        <div class="slide-category">Section 02 // Dead On Arrival</div>
+        <div class="slide-num-badge">SLIDE <b>03</b> / 11</div>
+      </div>
+      <h2 class="slide-title">新品不良（DOA）更換機制</h2>
+      <p class="slide-subtitle">購買初期 30 天內發生功能性故障，啟動 Cross-Shipment（先發後收/同步換貨）加速客戶產線復工。</p>
+
+      <div class="grid-2">
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="ipc-card card-success">
+            <div class="card-header">
+              <div class="card-title">DOA 資格判定與流程</div>
+              <span class="card-badge badge-green">30 DAYS WINDOW</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>時效要求</strong>：產品自<strong>購買日起 30 天之內</strong>。</li>
+                <li><strong>購買來源</strong>：必須由研華直接購買，或透過原授權代理經銷管道申請。</li>
+                <li><strong>處理方式</strong>：
+                  <ol style="margin-left: 20px; margin-top: 4px;">
+                    <li><strong>同步換貨（Cross-Shipment）</strong>：研華先發出良品/新品更換。</li>
+                    <li><strong>快速特急維修（Fast Repair）</strong>：若無庫存良品則走最高優先序維修。</li>
+                  </ol>
+                </li>
+                <li><strong>排除條款</strong>：嚴格排除<strong>運送途中外力破損</strong>（Shipping Damage 應向物流索賠）。</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="ipc-card card-cyan">
+            <div class="card-header">
+              <div class="card-title">DOA 運費研華全額承擔規範</div>
+              <span class="card-badge badge-blue">FREIGHT COVERAGE</span>
+            </div>
+            <div class="card-content">
+              <p style="margin-bottom: 8px;">若符合 DOA 規範，研華承擔<strong>往返雙向運費</strong>（限授權維修中心與原銷售站點路徑）。</p>
+              <div style="background:rgba(255, 61, 87, 0.1); border:1px solid rgba(255, 61, 87, 0.3); padding:8px 12px; border-radius:4px; font-size:12px; color:var(--text-sub);">
+                <span style="color:var(--accent-red); font-weight:600;">⚠️ 注意事項：</span>不涵蓋轉運至第三國或其他未授權站點之額外跨國差價。
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div class="ipc-img-box" style="height: 270px;">
+            <div class="ipc-img-tag">
+              <div class="status-led"></div>
+              CROSS-SHIPMENT // RAPID DISPATCH
+            </div>
+            <img src="assets/images/doa_cross_shipment.jpg" alt="研華自動化物聯網備品調撥換貨流程" loading="lazy">
+            <div class="ipc-img-footer">
+              <span class="highlight">AUTOMATED LOGISTICS HUB</span>
+              <span>EXPRESS EXCHANGE</span>
+            </div>
+          </div>
+
+          <div style="background: rgba(0, 112, 186, 0.15); border: 1px solid var(--adv-blue); border-radius: 8px; padding: 14px 18px; margin-top: 14px;">
+            <div style="font-family: var(--mono-font); font-size: 13px; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px;">
+              ⚡ 研華全球備品庫存特急調撥
+            </div>
+            <p style="font-size: 12px; color: var(--text-sub); line-height: 1.6;">
+              確認 DOA 申請後，系統自全球 Hub 調撥庫存良品優先派送，無縫銜接產線替換需求，大幅降低工控系統停工損失。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Freight & DAP -->
+    <section class="slide" data-slide="4">
+      <div class="slide-tag-row">
+        <div class="slide-category">Section 03 // Logistics & Incoterms</div>
+        <div class="slide-num-badge">SLIDE <b>04</b> / 11</div>
+      </div>
+      <h2 class="slide-title">保固內一般送修：運費與責任分攤</h2>
+      <p class="slide-subtitle">超過 30 天 DOA 期但仍在保固內之產品，採用國際貿易條款 Incoterms DAP（目的地交貨）分工原則。</p>
+
+      <table class="ipc-table">
+        <thead>
+          <tr>
+            <th>運送階段 (Shipping Stage)</th>
+            <th>貿易條件 (Incoterms)</th>
+            <th>運費與關稅負擔方</th>
+            <th>規範備註</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>客戶端 ➔ 研華維修中心</strong><br><span style="font-size:11px; color:var(--text-dim);">Defective unit sent to Advantech</span></td>
+            <td><span class="card-badge badge-blue">DAP</span> 建議條款</td>
+            <td><span class="badge-role role-cust">客戶自行負擔</span></td>
+            <td>客戶負責發貨運費，建議使用 DHL/UPS/FedEx 快遞，避免空運散貨（Air Cargo）產生額外清關雜費。</td>
+          </tr>
+          <tr>
+            <td><strong>研華維修中心 ➔ 客戶端</strong><br><span style="font-size:11px; color:var(--text-dim);">Repaired unit returned to Customer</span></td>
+            <td><span class="card-badge badge-blue">DAP</span> (Incoterms 2010)</td>
+            <td><span class="badge-role role-adv">研華全額承擔</span></td>
+            <td>由研華全權指定配合物流商；若客戶指定特殊快遞或非標準包裝，衍生差額由客戶負擔。</td>
+          </tr>
+          <tr>
+            <td><strong>過保 / 保固除外品 (OOW)</strong><br><span style="font-size:11px; color:var(--text-dim);">Out of Warranty / Excluded</span></td>
+            <td><span class="card-badge badge-orange">EXW / DAP</span></td>
+            <td><span class="badge-role role-cust">客戶負擔雙向來回</span></td>
+            <td>客戶須承擔產品修復費、檢測費及<strong>往返兩趟全額運費</strong>與進出口稅費。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="grid-3" style="margin-top: 14px;">
+        <div class="metric-box">
+          <div class="metric-label">標準出貨條款</div>
+          <div class="metric-value">Incoterms DAP</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">快遞推薦</div>
+          <div class="metric-value" style="font-size:16px;">DHL / UPS / FedEx</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">未授權退回品</div>
+          <div class="metric-value" style="font-size:14px; color:var(--accent-red);">拒收退運 / 客戶到付</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: Exclusions Matrix -->
+    <section class="slide" data-slide="5">
+      <div class="slide-tag-row">
+        <div class="slide-category">Section 04 // Policy Exclusions</div>
+        <div class="slide-num-badge">SLIDE <b>05</b> / 11</div>
+      </div>
+      <h2 class="slide-title">保固排除條款（4 大除外情境）</h2>
+      <p class="slide-subtitle">若產品符合以下任一條件，保固即刻失效或需自費維修，研華保有最終獨立判定權。</p>
+
+      <div class="grid-4">
+        <div class="ipc-card card-danger">
+          <div class="card-header">
+            <div class="card-title">01 逾期失效</div>
+            <span class="card-badge badge-red">EXPIRED</span>
+          </div>
+          <div class="card-content">
+            <strong>保固期限屆滿</strong>
+            <p style="margin-top:8px;">經研華序號與出貨紀錄系統核對，產品收件時已超過原廠保固或延長保固合約有效期限。</p>
+          </div>
+        </div>
+
+        <div class="ipc-card card-danger">
+          <div class="card-header">
+            <div class="card-title">02 擅自改裝</div>
+            <span class="card-badge badge-red">UNAUTHORIZED</span>
+          </div>
+          <div class="card-content">
+            <strong>未授權升級 / 標籤毀損</strong>
+            <p style="margin-top:8px;">客戶或第三方自行進行非原廠認可之硬體跳線、韌體刷寫、或原廠產品序號標籤（S/N Label）遭塗改、撕除、變造。</p>
+          </div>
+        </div>
+
+        <div class="ipc-card card-danger">
+          <div class="card-header">
+            <div class="card-title">03 不當使用</div>
+            <span class="card-badge badge-red">MISUSE / ACCIDENT</span>
+          </div>
+          <div class="card-content">
+            <strong>環境不當 / 人為疏失</strong>
+            <p style="margin-top:8px;">濫用、誤插高壓電源、未依工業規格散熱/通風、於潮濕腐蝕環境運行、不當維護，或非屬研華責任之意外人為故障。</p>
+          </div>
+        </div>
+
+        <div class="ipc-card card-danger">
+          <div class="card-header">
+            <div class="card-title">04 不可抗力</div>
+            <span class="card-badge badge-red">FORCE MAJEURE</span>
+          </div>
+          <div class="card-content">
+            <strong>天災不可抗力損害</strong>
+            <p style="margin-top:8px;">因雷擊突波（Lighting Strike）、水災淹沒、火災、地震等重大不可抗力天災造成硬體嚴重受損至無法修復者。</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:rgba(255, 145, 0, 0.1); border:1px solid rgba(255, 145, 0, 0.3); border-radius:6px; padding:12px 18px; margin-top:20px; display:flex; align-items:center; gap:12px;">
+        <span style="font-size:18px;">⚖️</span>
+        <div style="font-size:13px; color:var(--text-sub);">
+          <strong style="color:var(--accent-orange);">研華原廠全權判定原則：</strong>是否符合人為失誤、環境惡劣或未授權改裝，研華技術工程服務團隊依據收件實體狀況享有獨立且不受約束之最終判定權（Sole unfettered discretion）。
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: RMA 4-Step SOP -->
+    <section class="slide" data-slide="6">
+      <div class="slide-tag-row">
+        <div class="slide-category">Section 05 // Standard Operating Procedure</div>
+        <div class="slide-num-badge">SLIDE <b>06</b> / 11</div>
+      </div>
+      <h2 class="slide-title">eRMA 申請標準作業程序（4-Step SOP）</h2>
+      <p class="slide-subtitle">任何退修品必須具備系統授權之 RMA 編號，未經申請逕行寄達之貨件將原封退回且運費自理。</p>
+
+      <div class="flow-steps">
+        <div class="flow-step-item">
+          <div class="step-badge">
+            <span class="step-number">STEP 01</span>
+            <span class="card-badge badge-blue">PRE-CHECK</span>
+          </div>
+          <div class="step-title">AE 前置技術排查</div>
+          <div class="step-desc">若不確定是否為硬體損壞，先聯繫研華應用工程師（AE）進行遠端排除，避免無謂拆機返修。</div>
+        </div>
+
+        <div class="flow-step-item">
+          <div class="step-badge">
+            <span class="step-number">STEP 02</span>
+            <span class="card-badge badge-blue">ONLINE APPLY</span>
+          </div>
+          <div class="step-title">eRMA 系統登入申請</div>
+          <div class="step-desc">至 <code style="color:var(--accent-cyan);">erma.advantech.com.tw</code> 輸入帳號密碼，填寫產品料號與客戶基本資料。</div>
+        </div>
+
+        <div class="flow-step-item">
+          <div class="step-badge">
+            <span class="step-number">STEP 03</span>
+            <span class="card-badge badge-orange">DETAIL REQUIRED</span>
+          </div>
+          <div class="step-title">詳實問題描述</div>
+          <div class="step-desc">嚴禁僅填「does not work」或「failure」！須註記具體故障現象、重現步驟、作業系統及外加組件。</div>
+        </div>
+
+        <div class="flow-step-item">
+          <div class="step-badge">
+            <span class="step-number">STEP 04</span>
+            <span class="card-badge badge-green">AUTHORIZED</span>
+          </div>
+          <div class="step-title">核發 RMA 編號</div>
+          <div class="step-desc">取得專屬 RMA 號碼單據。整機產品即便僅修個別關鍵組件，<strong>亦必須綁定整機序號</strong>方享保固。</div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 14px;">
+        <div class="ipc-card">
+          <div class="card-title" style="font-size:14px; margin-bottom:8px; color:var(--accent-cyan);">💡 RMA 號碼的法律屬性</div>
+          <p style="font-size:12px; color:var(--text-sub); line-height:1.6;">RMA 號碼僅代表<strong>「同意退件受理與進廠授權」</strong>，絕非等於「已核准免費維修或更換新品」。最終保固屬性須待工程師拆檢驗證實物後判定。</p>
+        </div>
+        <div class="ipc-card">
+          <div class="card-title" style="font-size:14px; margin-bottom:8px; color:var(--accent-red);">🚫 未授權退件處置條款</div>
+          <p style="font-size:12px; color:var(--text-sub); line-height:1.6;">凡無有效 RMA 編號直接送達研華倉庫之物品，研華將<strong>不予預先通知、直接依貨件原路退回</strong>，衍生之一切來回運費與報關費由發貨人完全負擔。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: Packing & Customs -->
+    <section class="slide" data-slide="7">
+      <div class="slide-tag-row">
+        <div class="slide-category">Section 06 // Packaging & Customs Clearance</div>
+        <div class="slide-num-badge">SLIDE <b>07</b> / 11</div>
+      </div>
+      <h2 class="slide-title">硬體拆裝、防護包裝與海關申報</h2>
+      <p class="slide-subtitle">工業電腦零組件脆弱敏感，運送前務必落實防靜電保護、資料備份及海關發票標準格式。</p>
+
+      <div class="grid-2">
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="ipc-img-box" style="height: 250px;">
+            <div class="ipc-img-tag">
+              <div class="status-led"></div>
+              ESD SAFE HANDLING // PROTOCOL
+            </div>
+            <img src="assets/images/esd_packaging_guide.jpg" alt="工程師以靜電手環及 ESD 袋進行工控板卡防護包裝" loading="lazy">
+            <div class="ipc-img-footer">
+              <span class="highlight">STATIC SHIELDING & FOAM BOX</span>
+              <span>RMA LABEL REQUIRED</span>
+            </div>
+          </div>
+
+          <div class="ipc-card card-cyan">
+            <div class="card-header">
+              <div class="card-title">跨國海關 Invoice 4 要件</div>
+              <span class="card-badge badge-green">CUSTOMS INVOICE</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>1. 無商業價值宣告</strong>：加註 <code>"Invoice for customs purposes only with no commercial value"</code>。</li>
+                <li><strong>2. 低申報價值</strong>：填寫適當低單價，避免高額關稅滯留。</li>
+                <li><strong>3. 完整識別</strong>：列出 RMA No.、產品序號（S/N）及保固狀態。</li>
+                <li><strong>4. 原產地標示</strong>：載明原產國 Country of Origin (COO)。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="ipc-card">
+            <div class="card-header">
+              <div class="card-title">板卡配件拔除原則</div>
+              <span class="card-badge badge-blue">BOARD LEVEL</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>拆除加裝件</strong>：寄送前請拔除自行加裝之 CPU、RAM、CF/SD 記憶卡與轉接排線。</li>
+                <li><strong>例外註明</strong>：若外加元件疑似故障相關需連帶送測，<strong>務必於單據詳列件數</strong>，否則遺失恕不賠償。</li>
+                <li><strong>整機拆卸</strong>：整機若有移除關鍵零件，需於備註載明以利排查。</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="ipc-card">
+            <div class="card-header">
+              <div class="card-title">防靜電與外箱標記</div>
+              <span class="card-badge badge-orange">ESD SAFETY</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>ESD 防靜電保護</strong>：必須使用 ESD 專用防靜電袋或抗靜電泡棉完整封裝，包裝粗糙研華得拒收。</li>
+                <li><strong>外箱粗體標註</strong>：外箱必須以<strong>粗體大字註記 RMA Number</strong>，便於倉庫即時分揀掃描。</li>
+                <li><strong>專人收件</strong>：收件抬頭指名「Attn: RMA Service Department」。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#0f1827; border:1px solid var(--card-border); padding:10px 16px; border-radius:6px; margin-top:14px; font-size:12px; color:var(--text-sub); display:flex; align-items:center; justify-content:space-between;">
+        <span>💾 <strong>重要提醒：</strong>送修前請務必自行完整備份儲存裝置內所有數據，並於 eRMA 表單內註記是否同意研華重新安裝作業系統（OS Re-installation）。</span>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: Charges & Scrapping -->
+    <section class="slide" data-slide="8">
+      <div class="slide-tag-row">
+        <div class="slide-category">Section 07 // Fees & Scrapping Timeline</div>
+        <div class="slide-num-badge">SLIDE <b>08</b> / 11</div>
+      </div>
+      <h2 class="slide-title">過保收費與處置時限（雙十原則與報廢）</h2>
+      <p class="slide-subtitle">過保品收費機制透明化，同時制定嚴格的時效追蹤以防滯留呆料，保障倉儲週轉。</p>
+
+      <div class="grid-2">
+        <div class="ipc-card">
+          <div class="card-header">
+            <div class="card-title">收費標準與項目</div>
+            <span class="card-badge badge-orange">CHARGEABLE</span>
+          </div>
+          <div class="card-content">
+            <ul>
+              <li><strong>過保維修費</strong>：超過保固期後之工時檢修費與零件更換費用。</li>
+              <li><strong>無故障檢測費（NPF）</strong>：過保品經完整工程測試與校準後判定為 <strong>No Problem Found</strong>，仍須收取測試校驗標準費。</li>
+              <li><strong>除外品收費</strong>：保固期內但遭人為破壞、改裝、受潮腐蝕等除外品。</li>
+              <li><strong>事前報價授權</strong>：所有收費項目研華必須先發出維修報價單，並取得客戶正式簽署回傳核准後，始得動工修復。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ipc-card card-danger">
+          <div class="card-header">
+            <div class="card-title">時效控管與報廢處置時程線</div>
+            <span class="card-badge badge-red">SCRAP TIMELINE</span>
+          </div>
+          <div class="card-content">
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <div style="background:#08101d; border-left:3px solid var(--accent-cyan); padding:8px 12px; border-radius:4px;">
+                <div style="font-family:var(--mono-font); font-size:12px; color:var(--accent-cyan); font-weight:700;">10 個工作天內（研華發出報價）</div>
+                <div style="font-size:12px; color:var(--text-sub);">收到實物貨件後 10 工作天內出具維修報價單。</div>
+              </div>
+              <div style="background:#08101d; border-left:3px solid var(--accent-orange); padding:8px 12px; border-radius:4px;">
+                <div style="font-family:var(--mono-font); font-size:12px; color:var(--accent-orange); font-weight:700;">10 個工作天內（客戶回覆審核）</div>
+                <div style="font-size:12px; color:var(--text-sub);">客戶須於接獲報價後 10 工作天內回覆同意或放棄。</div>
+              </div>
+              <div style="background:#08101d; border-left:3px solid var(--accent-red); padding:8px 12px; border-radius:4px;">
+                <div style="font-family:var(--mono-font); font-size:12px; color:var(--accent-red); font-weight:700;">逾期 2 個月（逕行銷毀報廢）</div>
+                <div style="font-size:12px; color:var(--text-sub);">研華提供至少 2 次催告與 1 次最終告誡；若屆滿 2 個月未獲回覆，研華得<strong>不另通知直接進行報廢銷毀</strong>。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-top:14px;">
+        <div class="metric-box">
+          <div class="metric-label">報價交付時限</div>
+          <div class="metric-value">10 Workdays</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">客戶回覆期限</div>
+          <div class="metric-value">10 Workdays</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">最長保管處置上限</div>
+          <div class="metric-value" style="color:var(--accent-red);">2 ~ 3 Months</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: Post-Repair Warranty & FA -->
+    <section class="slide" data-slide="9">
+      <div class="slide-tag-row">
+        <div class="slide-category">Section 08 // Post-Repair Warranty & Root Cause</div>
+        <div class="slide-num-badge">SLIDE <b>09</b> / 11</div>
+      </div>
+      <h2 class="slide-title">維修再發保固與失效分析報告（FA）</h2>
+      <p class="slide-subtitle">針對已完修出廠之工控硬體提供保固延伸保障，並針對重大品質疑慮提供失效分析（Failure Analysis）機制。</p>
+
+      <div class="grid-2">
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="ipc-card card-success">
+            <div class="card-header">
+              <div class="card-title">完修後 3 個月相同故障免費保固</div>
+              <span class="card-badge badge-green">3 MONTHS RE-WARRANTY</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>相同症狀免收費</strong>：經研華修復出廠後，<strong>3 個月內再次重現相同故障</strong>，研華無償負責重新修復。</li>
+                <li><strong>防弊除外條款</strong>：若再次損壞係人為濫用、改裝、突波短路或惡劣環境所致，不適用免收費條款。</li>
+                <li><strong>標準維修報告（Repair Report）</strong>：每筆完修工單均隨附檢測結果與零件更換歷程。</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="ipc-card card-cyan">
+            <div class="card-header">
+              <div class="card-title">失效分析報告（Failure Analysis）</div>
+              <span class="card-badge badge-blue">FA REPORT</span>
+            </div>
+            <div class="card-content">
+              <ul>
+                <li><strong>專案申請</strong>：欲深入追查根本原因（Root Cause），可專案申請 FA 報告。</li>
+                <li><strong>研華審核權</strong>：研華保留受理審核權限，非所有案件均提供晶片級分析。</li>
+                <li><strong>費用責任歸屬</strong>：若判定故障與產品設計/製程無關（如外力擊穿），由客戶負擔調查費。</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div class="ipc-img-box" style="height: 270px;">
+            <div class="ipc-img-tag">
+              <div class="status-led"></div>
+              FA LAB // CIRCUIT TELEMETRY & DIAGNOSTICS
+            </div>
+            <img src="assets/images/fa_inspection_lab.jpg" alt="研華實驗室工程師以光學顯微鏡與示波器進行失效分析" loading="lazy">
+            <div class="ipc-img-footer">
+              <span class="highlight">MICROSCOPIC INSPECTION</span>
+              <span>ROOT CAUSE VERIFICATION</span>
+            </div>
+          </div>
+
+          <div style="background: rgba(0, 210, 255, 0.1); border: 1px solid rgba(0, 210, 255, 0.3); border-radius: 8px; padding: 14px 18px; margin-top: 14px;">
+            <div style="font-family: var(--mono-font); font-size: 13px; color: var(--accent-cyan); font-weight: 700; margin-bottom: 6px;">
+              🔬 研華實驗室精密檢驗與責任判定
+            </div>
+            <p style="font-size: 12px; color: var(--text-sub); line-height: 1.6;">
+              透過光學顯微檢測與電氣時序分析定位問題。經判定非原廠製程瑕疵者，將依標準收取技術分析費。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Interactive Decision Tool -->
+    <section class="slide" data-slide="10">
+      <div class="slide-tag-row">
+        <div class="slide-category">Section 09 // Interactive Decision Matrix</div>
+        <div class="slide-num-badge">SLIDE <b>10</b> / 11</div>
+      </div>
+      <h2 class="slide-title">互動式 eRMA 快速判定輔助機</h2>
+      <p class="slide-subtitle">點選您的工業電腦送修情境，系統即時依據研華 Global Policy 運算保固類別、運費責任與標準作業建議。</p>
+
+      <div class="calculator-layout">
+        <!-- Input Panel -->
+        <div class="calc-input-panel">
+          <div class="calc-group">
+            <div class="calc-label"><span>01 //</span> 購買時間 / 出貨天數</div>
+            <div class="calc-select" id="groupDays">
+              <button class="btn-select active" data-days="doa">≤ 30 天內（購買初期 / 新品）</button>
+              <button class="btn-select" data-days="in-warranty">31 天 ～ 保固期限內</button>
+              <button class="btn-select" data-days="oow">已超過保固期限（過保）</button>
+            </div>
+          </div>
+
+          <div class="calc-group">
+            <div class="calc-label"><span>02 //</span> 故障外觀與使用情境</div>
+            <div class="calc-select" id="groupCondition">
+              <button class="btn-select active" data-cond="normal">自然正常故障（無外力撞擊/燒毀）</button>
+              <button class="btn-select" data-cond="modified">自行改裝 / 撕毀序號標籤 / 刷非官方韌體</button>
+              <button class="btn-select" data-cond="disaster">天災雷擊 / 淹水 / 泡水腐蝕嚴重毀損</button>
+            </div>
+          </div>
+
+          <div class="calc-group">
+            <div class="calc-label"><span>03 //</span> 是否為 3 個月內曾返修之相同問題？</div>
+            <div class="calc-select" id="groupRecent">
+              <button class="btn-select active" data-recent="no">否（首次發生或非近期返修）</button>
+              <button class="btn-select" data-recent="yes">是（3 個月前曾修過完全相同故障）</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output Panel -->
+        <div class="calc-output-panel">
+          <div>
+            <div class="output-header">
+              <span style="font-family:var(--mono-font); font-size:12px; color:var(--accent-cyan);">DIAGNOSIS RESULT</span>
+              <span class="card-badge badge-green" id="resBadge">QUALIFIED</span>
+            </div>
+            <div class="verdict-status status-doa" id="resStatus">
+              <span>●</span> <span id="resStatusText">DOA 新品不良換貨</span>
+            </div>
+            
+            <div class="verdict-details">
+              <div class="verdict-detail-item">
+                <b>保固與服務屬性 (Warranty Status)</b>
+                <span id="resWarrantyDesc">符合 30 天內 DOA 條件，啟動 Cross-Shipment 換貨或快速特急維修。</span>
+              </div>
+              <div class="verdict-detail-item">
+                <b>運費負擔歸屬 (Freight Responsibility)</b>
+                <span id="resFreightDesc" style="color:var(--accent-green); font-weight:600;">研華全額承擔雙向來回運費（限授權維修中心路徑）。</span>
+              </div>
+              <div class="verdict-detail-item">
+                <b>SOP 建議與注意事項 (Action Guidelines)</b>
+                <span id="resActionDesc">請立即至 eRMA 填寫申請單，拔除自加組件，外箱標註 RMA No. 並採用 ESD 防靜電袋封裝。</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px; padding-top:12px; border-top:1px solid var(--card-border); font-size:11px; color:var(--text-dim); font-family:var(--mono-font);">
+            ENGINE ALGORITHM: Advantech ERMA Ruleset v2026.11
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: Summary & Checklist -->
+    <section class="slide" data-slide="11">
+      <div class="slide-tag-row">
+        <div class="slide-category">Section 10 // Summary & Checklist</div>
+        <div class="slide-num-badge">SLIDE <b>11</b> / 11</div>
+      </div>
+      <h2 class="slide-title">送修前防呆 Check-list 與資源彙整</h2>
+      <p class="slide-subtitle">工業電腦返修前請依序逐一核對，大幅縮短維修週轉時間（Turnaround Time）並杜絕退件風險。</p>
+
+      <div class="grid-2">
+        <div class="ipc-card card-cyan">
+          <div class="card-header">
+            <div class="card-title">工業電腦送修防呆清單（Check-list）</div>
+            <span class="card-badge badge-blue">MUST CHECK</span>
+          </div>
+          <div class="card-content">
+            <ul style="font-size:13px; line-height:1.7;">
+              <li>☑ <strong>已取得有效 RMA 編號</strong>：嚴禁未獲授權私自寄送，無單據一律原件退回。</li>
+              <li>☑ <strong>整機序號核對</strong>：即便利退部分組件，整機外殼 S/N 必須留存並填入單據。</li>
+              <li>☑ <strong>非原廠元件拔除</strong>：自購之 CPU、RAM、CF 卡已拆卸（若附送已在單據註記）。</li>
+              <li>☑ <strong>機密資料備份</strong>：硬碟/儲存媒體已完整備份，並確認是否允許重灌 OS。</li>
+              <li>☑ <strong>ESD 防護與外箱粗體標註</strong>：已使用防靜電袋，箱外以大字標明 <code>RMA: XXXXXXXX</code>。</li>
+              <li>☑ <strong>報關 Invoice 四要素</strong>：跨國件已註明「無商業價值」、低單價、S/N 及 COO。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="ipc-card">
+          <div class="card-header">
+            <div class="card-title">研華官方服務入口矩陣</div>
+            <span class="card-badge badge-green">DIRECT LINKS</span>
+          </div>
+          <div class="card-content">
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <a href="https://erma.advantech.com.tw" target="_blank" style="text-decoration:none; background:#0f1827; border:1px solid var(--card-border); padding:10px 14px; border-radius:6px; display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:var(--accent-cyan); font-weight:600; font-family:var(--mono-font);">eRMA 官方線上報修入口</span>
+                <span style="font-size:11px; color:var(--text-dim);">erma.advantech.com.tw ↗</span>
+              </a>
+              <a href="https://erma.advantech.com.tw/Cust/GeneralService/Warranty" target="_blank" style="text-decoration:none; background:#0f1827; border:1px solid var(--card-border); padding:10px 14px; border-radius:6px; display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:var(--accent-cyan); font-weight:600; font-family:var(--mono-font);">產品序號保固期即時查詢</span>
+                <span style="font-size:11px; color:var(--text-dim);">GeneralService/Warranty ↗</span>
+              </a>
+              <a href="https://www.advantech.com/en/ags/value-added_servicepack" target="_blank" style="text-decoration:none; background:#0f1827; border:1px solid var(--card-border); padding:10px 14px; border-radius:6px; display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:var(--accent-cyan); font-weight:600; font-family:var(--mono-font);">加值延長保固服務包 (AGS)</span>
+                <span style="font-size:11px; color:var(--text-dim);">Value-Added Packs ↗</span>
+              </a>
+            </div>
+            <div style="margin-top:16px; padding:12px; background:rgba(0, 112, 186, 0.15); border:1px solid var(--adv-blue); border-radius:6px; font-size:12px; color:var(--text-sub);">
+              💬 <strong>專家建議：</strong>在寄出昂貴的工控機箱前，先讓現場 AE 工程師透過遠端日誌或燈號初步分析，平均可省下 35% 以上的不必要返修時間！
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Control Bar -->
+  <footer class="ipc-footer">
+    <div class="progress-bar-container">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn-ipc" id="btnPrev">
+        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        上一頁
+      </button>
+      <button class="btn-ipc" id="btnNext">
+        下一頁
+        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </button>
+      <div class="slide-counter">
+        投影片 <b id="currentSlideNum">01</b> / <span id="totalSlideNum">11</span>
+      </div>
+    </div>
+
+    <div class="shortcut-hints">
+      <span>導覽：<kbd>←</kbd> <kbd>→</kbd> <kbd>Space</kbd></span>
+      <span>總覽：<kbd>O</kbd></span>
+      <span>全螢幕：<kbd>F</kbd></span>
+    </div>
+  </footer>
+
+  <!-- Overview Modal -->
+  <div class="overview-modal" id="overviewModal">
+    <div class="overview-header">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div class="ipc-logo-badge">SLIDE OVERVIEW</div>
+        <h3 style="font-size:18px; color:#fff;">簡報投影片總覽（點擊快速跳轉）</h3>
+      </div>
+      <button class="btn-ipc" id="btnCloseOverview">關閉 [ESC]</button>
+    </div>
+    <div class="overview-grid" id="overviewGrid"></div>
+  </div>
+
+  <script>
+    // State
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const totalSlides = slides.length;
+    let currentIdx = 0;
+
+    // DOM Elements
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const currentSlideNum = document.getElementById('currentSlideNum');
+    const totalSlideNum = document.getElementById('totalSlideNum');
+    const progressBar = document.getElementById('progressBar');
+    const btnOverview = document.getElementById('btnOverview');
+    const btnCloseOverview = document.getElementById('btnCloseOverview');
+    const overviewModal = document.getElementById('overviewModal');
+    const overviewGrid = document.getElementById('overviewGrid');
+    const btnFullscreen = document.getElementById('btnFullscreen');
+
+    totalSlideNum.textContent = String(totalSlides).padStart(2, '0');
+
+    // Build Overview Grid
+    slides.forEach((slide, idx) => {
+      const titleElem = slide.querySelector('.slide-title') || slide.querySelector('.cover-h1');
+      const titleText = titleElem ? titleElem.innerText.replace(/\n/g, ' ') : `Slide ${idx + 1}`;
+      const thumb = document.createElement('div');
+      thumb.className = 'overview-thumb';
+      if (idx === currentIdx) thumb.classList.add('current');
+      thumb.innerHTML = `
+        <div class="thumb-num">SLIDE ${String(idx + 1).padStart(2, '0')}</div>
+        <div class="thumb-title">${titleText}</div>
+      `;
+      thumb.addEventListener('click', () => {
+        goToSlide(idx);
+        closeOverview();
+      });
+      overviewGrid.appendChild(thumb);
+    });
+
+    function updateSlideUI() {
+      slides.forEach((slide, idx) => {
+        if (idx === currentIdx) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      currentSlideNum.textContent = String(currentIdx + 1).padStart(2, '0');
+      const pct = ((currentIdx + 1) / totalSlides) * 100;
+      progressBar.style.width = `${pct}%`;
+
+      btnPrev.disabled = currentIdx === 0;
+      btnNext.disabled = currentIdx === totalSlides - 1;
+
+      // Update overview thumb active
+      const thumbs = overviewGrid.querySelectorAll('.overview-thumb');
+      thumbs.forEach((th, i) => {
+        if (i === currentIdx) th.classList.add('current');
+        else th.classList.remove('current');
+      });
+    }
+
+    function goToSlide(idx) {
+      if (idx >= 0 && idx < totalSlides) {
+        currentIdx = idx;
+        updateSlideUI();
+      }
+    }
+
+    function nextSlide() {
+      if (currentIdx < totalSlides - 1) {
+        goToSlide(currentIdx + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentIdx > 0) {
+        goToSlide(currentIdx - 1);
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => alert(err.message));
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    function openOverview() {
+      overviewModal.classList.add('open');
+    }
+
+    function closeOverview() {
+      overviewModal.classList.remove('open');
+    }
+
+    // Event Listeners
+    btnNext.addEventListener('click', nextSlide);
+    btnPrev.addEventListener('click', prevSlide);
+    btnOverview.addEventListener('click', openOverview);
+    btnCloseOverview.addEventListener('click', closeOverview);
+    btnFullscreen.addEventListener('click', toggleFullscreen);
+
+    // Keyboard Navigation
+    window.addEventListener('keydown', (e) => {
+      if (overviewModal.classList.contains('open')) {
+        if (e.key === 'Escape' || e.key === 'o' || e.key === 'O') closeOverview();
+        return;
+      }
+
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        prevSlide();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToSlide(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToSlide(totalSlides - 1);
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      } else if (e.key === 'o' || e.key === 'O') {
+        openOverview();
+      }
+    });
+
+    // Touch Swipe support
+    let touchStartX = 0;
+    window.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    window.addEventListener('touchend', e => {
+      const touchEndX = e.changedTouches[0].screenX;
+      if (touchEndX < touchStartX - 50) nextSlide();
+      if (touchEndX > touchStartX + 50) prevSlide();
+    }, { passive: true });
+
+    // Interactive Decision Matrix Calculator Logic (Slide 10)
+    let calcState = {
+      days: 'doa',
+      cond: 'normal',
+      recent: 'no'
+    };
+
+    function setupButtonGroup(containerId, stateKey) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const btns = container.querySelectorAll('.btn-select');
+      btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          btns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          calcState[stateKey] = btn.dataset[stateKey === 'days' ? 'days' : stateKey === 'cond' ? 'cond' : 'recent'];
+          evaluateRMARules();
+        });
+      });
+    }
+
+    setupButtonGroup('groupDays', 'days');
+    setupButtonGroup('groupCondition', 'cond');
+    setupButtonGroup('groupRecent', 'recent');
+
+    function evaluateRMARules() {
+      const resStatus = document.getElementById('resStatus');
+      const resStatusText = document.getElementById('resStatusText');
+      const resBadge = document.getElementById('resBadge');
+      const resWarrantyDesc = document.getElementById('resWarrantyDesc');
+      const resFreightDesc = document.getElementById('resFreightDesc');
+      const resActionDesc = document.getElementById('resActionDesc');
+
+      resStatus.className = 'verdict-status';
+
+      // Rule 1: Exclusions (Disaster or Unauthorized Modifications)
+      if (calcState.cond === 'disaster') {
+        resStatus.classList.add('status-excluded');
+        resStatusText.textContent = '保固排除：重大天災毀損無法修復';
+        resBadge.className = 'card-badge badge-red';
+        resBadge.textContent = 'EXCLUDED / SCRAP';
+        resWarrantyDesc.textContent = '經雷擊、泡水或天災嚴重損毀至無法修復，依全球政策第 3.4 條排除於保固保護之外。';
+        resFreightDesc.textContent = '若需研華報廢或取回殘骸，一切往返費用由客戶負擔。';
+        resActionDesc.textContent = '建議請工程師判定殘值或直接進行報廢註銷，無須安排標準 RMA 流程。';
+        return;
+      }
+
+      if (calcState.cond === 'modified') {
+        resStatus.classList.add('status-excluded');
+        resStatusText.textContent = '保固排除：未授權改裝 / 標籤毀損';
+        resBadge.className = 'card-badge badge-red';
+        resBadge.textContent = 'WARRANTY VOID';
+        resWarrantyDesc.textContent = '因自行跳線改裝、非官方升級或序號撕毀，保固立即作廢（Void），依第 3.2 條轉為付費排修。';
+        resFreightDesc.textContent = '客戶負擔雙向來回運費與報關費用（採 EXW/DAP 自付）。';
+        resActionDesc.textContent = '必須自費修復。收到研華報價單後須於 10 工作天內確認簽回，否則逾期將銷毀。';
+        return;
+      }
+
+      // Rule 2: 3-month Re-warranty for identical issue
+      if (calcState.recent === 'yes') {
+        resStatus.classList.add('status-warranty');
+        resStatusText.textContent = '完修 3 個月內相同故障免費復原';
+        resBadge.className = 'card-badge badge-green';
+        resBadge.textContent = '3M RE-WARRANTY';
+        resWarrantyDesc.textContent = '前次返修出廠後 3 個月內重現相同故障，研華依政策免費負責重構硬體功能。';
+        resFreightDesc.textContent = '送修由客戶付，返還由研華負擔（保內 DAP 標準）。';
+        resActionDesc.textContent = '請於 eRMA 註明「前次維修工單號」與故障重現說明，申請優先排修。';
+        return;
+      }
+
+      // Rule 3: DOA
+      if (calcState.days === 'doa') {
+        resStatus.classList.add('status-doa');
+        resStatusText.textContent = 'DOA 新品不良（先發後收 / 快速特急）';
+        resBadge.className = 'card-badge badge-green';
+        resBadge.textContent = 'QUALIFIED DOA';
+        resWarrantyDesc.textContent = '購買 30 天內功能性不良，符合 DOA 資格，享有 Cross-Shipment 換貨或最高優先序維修。';
+        resFreightDesc.textContent = '研華全額吸收客戶現場與授權維修中心間之雙向來回運費。';
+        resActionDesc.textContent = '請至 eRMA 申請 DOA，確認包裝符合 ESD 規格，外箱註記 RMA 號碼後安排派件。';
+        return;
+      }
+
+      // Rule 4: Normal In-Warranty
+      if (calcState.days === 'in-warranty') {
+        resStatus.classList.add('status-warranty');
+        resStatusText.textContent = '標準保固期內免費維修（In-Warranty）';
+        resBadge.className = 'card-badge badge-blue';
+        resBadge.textContent = 'IN WARRANTY';
+        resWarrantyDesc.textContent = '產品在原廠保固或延長保固期限內，免收工時檢修費與零件更換費。';
+        resFreightDesc.textContent = '客戶負擔寄至研華運費；研華負擔修復寄回客戶運費（雙向 DAP）。';
+        resActionDesc.textContent = '拔除非原廠 CPU/RAM/CF 卡，備份系統資料，外箱粗體註記 RMA No. 寄送。';
+        return;
+      }
+
+      // Rule 5: Out of Warranty (OOW)
+      if (calcState.days === 'oow') {
+        resStatus.classList.add('status-oow');
+        resStatusText.textContent = '過保自費維修（Out of Warranty）';
+        resBadge.className = 'card-badge badge-orange';
+        resBadge.textContent = 'OOW CHARGEABLE';
+        resWarrantyDesc.textContent = '產品已過保固期，將酌收基本工時檢修費、更換材料費（若為 NPF 亦需收檢驗費）。';
+        resFreightDesc.textContent = '客戶負擔雙向來回運費。';
+        resActionDesc.textContent = '研華收件後 10 工作天內提供報價，客戶請於 10 工作天內回覆確認。超過 2 個月未付將報廢。';
+        return;
+      }
+    }
+
+    // Init UI
+    updateSlideUI();
+    evaluateRMARules();
+  </script>
+</body>
+</html>

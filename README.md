@@ -9,9 +9,14 @@
 
 ---
 
-## 🖥️ 線上即時展示 (Live Demo)
+## 🖥️ 線上即時展示 (Live Demo - 雙版本自由切換)
 
-👉 **[點此直接開啟線上互動簡報](https://connielll.github.io/advantech-erma-presentation/)**
+本專案提供兩個版本供您選擇與比較（簡報右上角亦設有一鍵即時切換按鈕）：
+
+- 📊 **[純扁平圖表版（首選推薦 / Default Edition）](https://connielll.github.io/advantech-erma-presentation/)**  
+  *極簡高對比工控風格、聚焦政策數據指標與純粹圖表流程，無背景圖片干擾。*
+- 🖼️ **[圖文視覺強化版（Visual Edition with AI Images）](https://connielll.github.io/advantech-erma-presentation/index_with_images.html)**  
+  *嵌入高規格 AI 生成工業電腦硬體、自動化換貨物流、ESD 防護包裝與失效分析實驗室情境圖。*
 
 ---
 
