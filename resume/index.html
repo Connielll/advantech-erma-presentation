@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人履歷表 | Resume & Career Portfolio</title>
+  <style>
+    :root {
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --accent: #0ea5e9;
+      --border: #e2e8f0;
+      --tag-bg: #f1f5f9;
+      --tag-text: #334155;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', Consolas, Monaco, monospace;
+    }
+
+    [data-theme="dark"] {
+      --bg-body: #0b1120;
+      --bg-card: #131d31;
+      --text-main: #f8fafc;
+      --text-sub: #cbd5e1;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-hover: #0ea5e9;
+      --primary-light: rgba(56, 189, 248, 0.12);
+      --accent: #00e676;
+      --border: #1e293b;
+      --tag-bg: #1e293b;
+      --tag-text: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      padding: 40px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Fixed Action Toolbar */
+    .action-bar {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .btn-action {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow);
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-action.btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .btn-action.btn-primary:hover {
+      background: var(--primary-hover);
+      color: #fff;
+    }
+
+    /* Resume Document Wrapper (A4 Proportion) */
+    .resume-container {
+      width: 100%;
+      max-width: 900px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 56px 64px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 40px;
+    }
+
+    /* Header Profile */
+    header.resume-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 32px;
+      margin-bottom: 36px;
+      gap: 24px;
+    }
+
+    .header-info {
+      flex: 1;
+    }
+
+    .candidate-name {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .target-role {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .role-badge {
+      font-size: 12px;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .bio-summary {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.6;
+      max-width: 620px;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s;
+    }
+
+    .contact-item:hover {
+      color: var(--primary);
+    }
+
+    .contact-item svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      opacity: 0.8;
+    }
+
+    /* Section Structure */
+    section.resume-section {
+      margin-bottom: 36px;
+    }
+
+    section.resume-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 16px;
+      background: var(--primary);
+      border-radius: 2px;
+      display: inline-block;
+    }
+
+    /* Skills Grid */
+    .skills-category-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .skill-category-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-tag {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--tag-text);
+      font-size: 12px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-weight: 500;
+    }
+
+    /* Timeline / Work Experience */
+    .timeline {
+      position: relative;
+      border-left: 2px solid var(--border);
+      padding-left: 24px;
+      margin-left: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -31px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 3px solid var(--bg-card);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .job-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .job-company {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .job-period {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .job-achievements {
+      list-style-type: disc;
+      padding-left: 18px;
+      margin-top: 8px;
+      font-size: 13.5px;
+      color: var(--text-sub);
+    }
+
+    .job-achievements li {
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    .job-achievements li strong {
+      color: var(--text-main);
+    }
+
+    /* Project Cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      transition: all 0.2s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .project-top {
+      margin-bottom: 12px;
+    }
+
+    .project-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 12px;
+    }
+
+    .project-tech span {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 11px;
+      font-family: var(--font-mono);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Education */
+    .edu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .edu-school {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .edu-degree {
+      color: var(--text-sub);
+      font-size: 13px;
+      margin-left: 8px;
+    }
+
+    .edu-year {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Print Optimization (@media print) */
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0 !important;
+      }
+
+      .action-bar, .no-print {
+        display: none !important;
+      }
+
+      .resume-container {
+        border: none !important;
+        box-shadow: none !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .candidate-name {
+        color: #000 !important;
+      }
+
+      .target-role, .section-title {
+        color: #1e3a8a !important;
+      }
+
+      .skill-card, .project-card {
+        border: 1px solid #cbd5e1 !important;
+        background: #fff !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+      }
+
+      .timeline-item {
+        page-break-inside: avoid;
+      }
+    }
+
+    /* Responsive for mobile */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 10px;
+      }
+
+      .action-bar {
+        position: static;
+        width: 100%;
+        max-width: 900px;
+        justify-content: flex-end;
+        margin-bottom: 16px;
+      }
+
+      .resume-container {
+        padding: 32px 24px;
+      }
+
+      header.resume-header {
+        flex-direction: column;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Action Toolbar -->
+  <div class="action-bar no-print">
+    <button class="btn-action" id="btnThemeToggle" title="切換深色 / 淺色模式">
+      <span id="themeIcon">🌙</span> <span id="themeText">深色模式</span>
+    </button>
+    <button class="btn-action btn-primary" onclick="window.print()" title="列印或直接另存為 A4 PDF">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+      匯出 / 列印 PDF
+    </button>
+  </div>
+
+  <!-- Main Resume Paper -->
+  <main class="resume-container">
+
+    <!-- Header Section -->
+    <header class="resume-header">
+      <div class="header-info">
+        <h1 class="candidate-name">您的姓名（Candidate Name）</h1>
+        <div class="target-role">
+          <span>目標職位名稱（例：全端軟體工程師 / AI 應用開發者）</span>
+          <span class="role-badge">轉職積極求職中</span>
+        </div>
+        <p class="bio-summary">
+          具備豐富跨領域實務背景，擅長快速掌握現代化技術架構與業務流程邏輯。目前全心投入轉職方向，具備扎實專案開發、問題拆解與團隊協作能力，能為貴團隊帶來即戰力與跨領域創新思維。
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <a href="mailto:your.email@example.com" class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          your.email@example.com
+        </a>
+        <a href="tel:+886912345678" class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          +886 912-345-678
+        </a>
+        <a href="https://github.com/Connielll" target="_blank" class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          github.com/Connielll
+        </a>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          台灣，台北市（Taipei, Taiwan）
+        </div>
+      </div>
+    </header>
+
+    <!-- Professional Skills -->
+    <section class="resume-section">
+      <h2 class="section-title">核心技能專長（Core Competencies）</h2>
+      <div class="skills-category-group">
+        <div class="skill-card">
+          <div class="skill-category-name">🚀 核心技術與開發（Tech Stack）</div>
+          <div class="skill-tags">
+            <span class="skill-tag">HTML5 / CSS3</span>
+            <span class="skill-tag">JavaScript (ES6+)</span>
+            <span class="skill-tag">Vue.js / React</span>
+            <span class="skill-tag">RESTful APIs</span>
+            <span class="skill-tag">Git / GitHub</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-category-name">🤖 AI 與現代化工具（AI & Tools）</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Prompt Engineering</span>
+            <span class="skill-tag">LLM 應用整合</span>
+            <span class="skill-tag">GitHub Actions CI/CD</span>
+            <span class="skill-tag">VS Code / DevTools</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-category-name">💼 職場與軟實力（Soft Skills）</div>
+          <div class="skill-tags">
+            <span class="skill-tag">跨部門溝通協作</span>
+            <span class="skill-tag">敏捷開發思維</span>
+            <span class="skill-tag">複雜問題拆解</span>
+            <span class="skill-tag">自學驅動與適應力</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work Experience -->
+    <section class="resume-section">
+      <h2 class="section-title">工作經歷（Work Experience）</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="job-header">
+            <div>
+              <span class="job-title">最近任職職稱（Current / Recent Role）</span> · 
+              <span class="job-company">公司名稱（Company Name）</span>
+            </div>
+            <span class="job-period">2023.06 - 現職</span>
+          </div>
+          <ul class="job-achievements">
+            <li><strong>核心亮點實績</strong>：主導或參與 XX 關鍵任務，改善了 YY 流程，使整體效率提升 30% 以上。</li>
+            <li><strong>專案與團隊推動</strong>：跨部門協同溝通 5+ 利害關係人，精準按期交付高品質成果。</li>
+            <li><strong>轉職可遷移技能</strong>：將業務拆解能力、數據分析或系統化管理經驗成功導入專案管理流程中。</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="job-header">
+            <div>
+              <span class="job-title">前一份任職職稱（Previous Role）</span> · 
+              <span class="job-company">前公司名稱（Previous Company）</span>
+            </div>
+            <span class="job-period">2021.03 - 2023.05</span>
+          </div>
+          <ul class="job-achievements">
+            <li><strong>業務拓展與運營</strong>：負責產品日常運維與客戶需求分析，成功解決超過 100+ 技術與業務問題。</li>
+            <li><strong>流程自動化標準化</strong>：建立標準化作業程序（SOP），減少人為失誤率 25%。</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Key Projects -->
+    <section class="resume-section">
+      <h2 class="section-title">精選專案展示（Featured Projects）</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-title">
+              <span>現代化互動展示系統（Interactive Web Deck）</span>
+              <a href="https://connielll.github.io/advantech-erma-presentation/" target="_blank" style="font-size:12px; color:var(--primary); text-decoration:none;">線上預覽 ↗</a>
+            </div>
+            <p class="project-desc">
+              以工業電腦（IPC）為主題，打造零外部依賴的高質感全 HTML 互動簡報系統。支援鍵盤導航、RWD 自適應與即時互動診斷演算法。
+            </p>
+          </div>
+          <div class="project-tech">
+            <span>HTML5</span>
+            <span>Modern CSS</span>
+            <span>Vanilla JS</span>
+            <span>GitHub Pages</span>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-top">
+            <div class="project-title">
+              <span>個人專業履歷作品集（Career Transition Portfolio）</span>
+              <span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono);">ACTIVE</span>
+            </div>
+            <p class="project-desc">
+              支援深淺主題切換、一鍵 A4 格式完美 PDF 匯出及 ATS 友善結構之響應式個人簡歷。
+            </p>
+          </div>
+          <div class="project-tech">
+            <span>Responsive Design</span>
+            <span>Print CSS</span>
+            <span>Accessibility (a11y)</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="resume-section">
+      <h2 class="section-title">學歷背景（Education）</h2>
+      <div class="edu-item">
+        <div>
+          <span class="edu-school">畢業大學名稱（University Name）</span>
+          <span class="edu-degree">學士學位 / 科系名稱（Major / Degree）</span>
+        </div>
+        <span class="edu-year">2017 - 2021</span>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Dark / Light Theme Toggle
+    const btnThemeToggle = document.getElementById('btnThemeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+
+    // Check system preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let isDark = localStorage.getItem('resume_theme') === 'dark' || (!localStorage.getItem('resume_theme') && prefersDark);
+
+    function applyTheme() {
+      if (isDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '☀️';
+        themeText.textContent = '淺色模式';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeIcon.textContent = '🌙';
+        themeText.textContent = '深色模式';
+      }
+    }
+
+    btnThemeToggle.addEventListener('click', () => {
+      isDark = !isDark;
+      localStorage.setItem('resume_theme', isDark ? 'dark' : 'light');
+      applyTheme();
+    });
+
+    applyTheme();
+  </script>
+</body>
+</html>
