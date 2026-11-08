@@ -901,9 +901,347 @@
       height: 100%;
     }
 
+    /* AI Terminal Styles (Slide 12) */
+    .ai-terminal-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 20px;
+      height: 100%;
+      min-height: 500px;
+    }
+
+    .ai-prompt-station {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+    }
+
+    .prompt-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .prompt-group-title {
+      font-size: 11px;
+      font-family: var(--mono-font);
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 700;
+    }
+
+    .prompt-chip {
+      background: #0f1827;
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: var(--text-sub);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      width: 100%;
+      font-family: inherit;
+    }
+
+    .prompt-chip:hover {
+      background: var(--card-hover);
+      border-color: var(--accent-cyan);
+      color: #fff;
+      transform: translateX(3px);
+    }
+
+    .prompt-chip.escalate-chip:hover {
+      border-color: var(--accent-red);
+      color: #ff9aa8;
+    }
+
+    .ai-chat-console {
+      background: #080e18;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .console-header {
+      background: #0e1726;
+      border-bottom: 1px solid var(--card-border);
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .console-title {
+      font-family: var(--mono-font);
+      font-size: 12px;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .console-status-tag {
+      font-family: var(--mono-font);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 3px;
+      background: rgba(0, 230, 118, 0.15);
+      color: var(--accent-green);
+      border: 1px solid rgba(0, 230, 118, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .console-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .console-messages::-webkit-scrollbar {
+      width: 5px;
+    }
+    .console-messages::-webkit-scrollbar-thumb {
+      background: var(--card-border);
+      border-radius: 3px;
+    }
+
+    .chat-msg {
+      display: flex;
+      gap: 10px;
+      max-width: 92%;
+      animation: fadeInMsg 0.25s ease-out;
+    }
+
+    @keyframes fadeInMsg {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chat-msg.user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .chat-msg.ai {
+      align-self: flex-start;
+    }
+
+    .msg-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono-font);
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .chat-msg.user .msg-avatar {
+      background: #005a96;
+      color: #fff;
+    }
+
+    .chat-msg.ai .msg-avatar {
+      background: #112239;
+      color: var(--accent-cyan);
+      border: 1px solid var(--adv-blue);
+    }
+
+    .msg-content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-width: 100%;
+    }
+
+    .chat-bubble {
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .chat-msg.user .chat-bubble {
+      background: var(--adv-blue);
+      color: #fff;
+      border-top-right-radius: 2px;
+    }
+
+    .chat-msg.ai .chat-bubble {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      border-top-left-radius: 2px;
+    }
+
+    .ai-badge-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .ai-bubble-tag {
+      font-family: var(--mono-font);
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    .tag-policy {
+      background: rgba(0, 112, 186, 0.25);
+      color: var(--accent-cyan);
+      border: 1px solid var(--adv-blue);
+    }
+
+    .tag-escalate {
+      background: rgba(255, 61, 87, 0.2);
+      color: var(--accent-red);
+      border: 1px solid rgba(255, 61, 87, 0.4);
+    }
+
+    .escalation-box {
+      margin-top: 10px;
+      padding: 12px 14px;
+      background: rgba(255, 61, 87, 0.08);
+      border: 1px solid rgba(255, 61, 87, 0.3);
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .escalation-header {
+      color: var(--accent-red);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .escalation-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .btn-action-mail {
+      background: #ff3d57;
+      color: #fff !important;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+    .btn-action-mail:hover {
+      background: #e02842;
+    }
+
+    .btn-action-copy {
+      background: #111e33;
+      color: var(--accent-cyan);
+      border: 1px solid var(--adv-blue);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-action-copy:hover {
+      background: var(--adv-blue);
+      color: #fff;
+    }
+
+    .console-input-bar {
+      background: #0e1726;
+      border-top: 1px solid var(--card-border);
+      padding: 10px 14px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .ai-input {
+      flex: 1;
+      background: #08101d;
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 9px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .ai-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(0, 210, 255, 0.25);
+    }
+
+    .ai-send-btn {
+      background: var(--adv-blue);
+      color: #fff;
+      border: 1px solid var(--accent-cyan);
+      border-radius: 6px;
+      padding: 9px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .ai-send-btn:hover {
+      background: #0088e0;
+      box-shadow: 0 0 12px var(--adv-blue-glow);
+    }
+
     /* Responsive */
     @media (max-width: 900px) {
-      .grid-4, .grid-3, .grid-2, .cover-stats-row, .flow-steps, .calculator-layout, .cover-grid {
+      .grid-4, .grid-3, .grid-2, .cover-stats-row, .flow-steps, .calculator-layout, .cover-grid, .ai-terminal-layout {
         grid-template-columns: 1fr;
       }
       .slide {
@@ -939,6 +1277,10 @@
         <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
         純扁平圖表版 ↗
       </a>
+      <button class="btn-ipc" id="btnAIChat" title="按 C 鍵開啟 AI 智能客服終端" style="color:var(--accent-cyan); border-color:var(--adv-blue); background:rgba(0,112,186,0.18);">
+        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+        AI 客服終端 [C]
+      </button>
       <button class="btn-ipc" id="btnOverview" title="按 O 鍵開啟目錄總覽">
         <svg viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
         總覽 [O]
@@ -1005,7 +1347,7 @@
     <section class="slide" data-slide="2">
       <div class="slide-tag-row">
         <div class="slide-category">Section 01 // Warranty Architecture</div>
-        <div class="slide-num-badge">SLIDE <b>02</b> / 11</div>
+        <div class="slide-num-badge">SLIDE <b>02</b> / 12</div>
       </div>
       <h2 class="slide-title">全球保固體系架構</h2>
       <p class="slide-subtitle">研華依產品屬性劃分全球標準保固與區域客製化服務，確保工業控制硬體在設計、材料與製程上免於缺陷。</p>
@@ -1072,7 +1414,7 @@
     <section class="slide" data-slide="3">
       <div class="slide-tag-row">
         <div class="slide-category">Section 02 // Dead On Arrival</div>
-        <div class="slide-num-badge">SLIDE <b>03</b> / 11</div>
+        <div class="slide-num-badge">SLIDE <b>03</b> / 12</div>
       </div>
       <h2 class="slide-title">新品不良（DOA）更換機制</h2>
       <p class="slide-subtitle">購買初期 30 天內發生功能性故障，啟動 Cross-Shipment（先發後收/同步換貨）加速客戶產線復工。</p>
@@ -1142,7 +1484,7 @@
     <section class="slide" data-slide="4">
       <div class="slide-tag-row">
         <div class="slide-category">Section 03 // Logistics & Incoterms</div>
-        <div class="slide-num-badge">SLIDE <b>04</b> / 11</div>
+        <div class="slide-num-badge">SLIDE <b>04</b> / 12</div>
       </div>
       <h2 class="slide-title">保固內一般送修：運費與責任分攤</h2>
       <p class="slide-subtitle">超過 30 天 DOA 期但仍在保固內之產品，採用國際貿易條款 Incoterms DAP（目的地交貨）分工原則。</p>
@@ -1198,7 +1540,7 @@
     <section class="slide" data-slide="5">
       <div class="slide-tag-row">
         <div class="slide-category">Section 04 // Policy Exclusions</div>
-        <div class="slide-num-badge">SLIDE <b>05</b> / 11</div>
+        <div class="slide-num-badge">SLIDE <b>05</b> / 12</div>
       </div>
       <h2 class="slide-title">保固排除條款（4 大除外情境）</h2>
       <p class="slide-subtitle">若產品符合以下任一條件，保固即刻失效或需自費維修，研華保有最終獨立判定權。</p>
@@ -1261,7 +1603,7 @@
     <section class="slide" data-slide="6">
       <div class="slide-tag-row">
         <div class="slide-category">Section 05 // Standard Operating Procedure</div>
-        <div class="slide-num-badge">SLIDE <b>06</b> / 11</div>
+        <div class="slide-num-badge">SLIDE <b>06</b> / 12</div>
       </div>
       <h2 class="slide-title">eRMA 申請標準作業程序（4-Step SOP）</h2>
       <p class="slide-subtitle">任何退修品必須具備系統授權之 RMA 編號，未經申請逕行寄達之貨件將原封退回且運費自理。</p>
@@ -1320,7 +1662,7 @@
     <section class="slide" data-slide="7">
       <div class="slide-tag-row">
         <div class="slide-category">Section 06 // Packaging & Customs Clearance</div>
-        <div class="slide-num-badge">SLIDE <b>07</b> / 11</div>
+        <div class="slide-num-badge">SLIDE <b>07</b> / 12</div>
       </div>
       <h2 class="slide-title">硬體拆裝、防護包裝與海關申報</h2>
       <p class="slide-subtitle">工業電腦零組件脆弱敏感，運送前務必落實防靜電保護、資料備份及海關發票標準格式。</p>
@@ -1395,7 +1737,7 @@
     <section class="slide" data-slide="8">
       <div class="slide-tag-row">
         <div class="slide-category">Section 07 // Fees & Scrapping Timeline</div>
-        <div class="slide-num-badge">SLIDE <b>08</b> / 11</div>
+        <div class="slide-num-badge">SLIDE <b>08</b> / 12</div>
       </div>
       <h2 class="slide-title">過保收費與處置時限（雙十原則與報廢）</h2>
       <p class="slide-subtitle">過保品收費機制透明化，同時制定嚴格的時效追蹤以防滯留呆料，保障倉儲週轉。</p>
@@ -1460,7 +1802,7 @@
     <section class="slide" data-slide="9">
       <div class="slide-tag-row">
         <div class="slide-category">Section 08 // Post-Repair Warranty & Root Cause</div>
-        <div class="slide-num-badge">SLIDE <b>09</b> / 11</div>
+        <div class="slide-num-badge">SLIDE <b>09</b> / 12</div>
       </div>
       <h2 class="slide-title">維修再發保固與失效分析報告（FA）</h2>
       <p class="slide-subtitle">針對已完修出廠之工控硬體提供保固延伸保障，並針對重大品質疑慮提供失效分析（Failure Analysis）機制。</p>
@@ -1525,7 +1867,7 @@
     <section class="slide" data-slide="10">
       <div class="slide-tag-row">
         <div class="slide-category">Section 09 // Interactive Decision Matrix</div>
-        <div class="slide-num-badge">SLIDE <b>10</b> / 11</div>
+        <div class="slide-num-badge">SLIDE <b>10</b> / 12</div>
       </div>
       <h2 class="slide-title">互動式 eRMA 快速判定輔助機</h2>
       <p class="slide-subtitle">點選您的工業電腦送修情境，系統即時依據研華 Global Policy 運算保固類別、運費責任與標準作業建議。</p>
@@ -1598,7 +1940,7 @@
     <section class="slide" data-slide="11">
       <div class="slide-tag-row">
         <div class="slide-category">Section 10 // Summary & Checklist</div>
-        <div class="slide-num-badge">SLIDE <b>11</b> / 11</div>
+        <div class="slide-num-badge">SLIDE <b>11</b> / 12</div>
       </div>
       <h2 class="slide-title">送修前防呆 Check-list 與資源彙整</h2>
       <p class="slide-subtitle">工業電腦返修前請依序逐一核對，大幅縮短維修週轉時間（Turnaround Time）並杜絕退件風險。</p>
@@ -1649,6 +1991,114 @@
       </div>
     </section>
 
+    <!-- SLIDE 12: Advantech eRMA AI Policy Assistant & Smart Escalation -->
+    <section class="slide" data-slide="12">
+      <div class="slide-tag-row">
+        <div class="slide-category">Section 11 // Advantech eRMA AI Policy Assistant & Escalation Engine</div>
+        <div class="slide-num-badge">SLIDE <b>12</b> / 12</div>
+      </div>
+      <h2 class="slide-title">
+        <svg style="width:24px;height:24px;fill:var(--accent-cyan);" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+        eRMA AI 智能政策助理與客服分流引導系統
+      </h2>
+      <p class="slide-subtitle">依據研華全球公開保固政策（Global Service Policy）提供即時條款解答；自動識別內部私有工單進度與深層硬體工程技術，智慧分流至官方專屬窗口。</p>
+
+      <div class="ai-terminal-layout">
+        <!-- Left: Quick Prompt Tags & Guidelines -->
+        <div class="ai-prompt-station">
+          <div class="prompt-card">
+            <div class="prompt-group-title">
+              <span>● 常見政策提問 (FAQ PROMPTS)</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <button class="prompt-chip" data-prompt="什麼情況符合 DOA 新品不良？運費由誰承擔？">
+                <span>🟢</span>
+                <span><strong>DOA 認定與運費</strong>：什麼情況符合新品不良？運費誰付？</span>
+              </button>
+              <button class="prompt-chip" data-prompt="過保維修如何收費？如果一直沒回覆報價會被報廢銷毀嗎？">
+                <span>🟢</span>
+                <span><strong>過保收費與雙十原則</strong>：報價天數與逾期報廢時限？</span>
+              </button>
+              <button class="prompt-chip" data-prompt="完修後有保固嗎？如何申請 FA 失效分析報告？">
+                <span>🟢</span>
+                <span><strong>完修保固與 FA 報告</strong>：相同故障免費條件與分析收費？</span>
+              </button>
+              <button class="prompt-chip" data-prompt="跨國送修 DAP 條款是什麼？報關發票 (Invoice) 要注意什麼？">
+                <span>🟢</span>
+                <span><strong>國際物流與 DAP 條款</strong>：海關發票四要素與包裝要求？</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="prompt-card" style="border-color:rgba(255,61,87,0.35);">
+            <div class="prompt-group-title" style="color:var(--accent-red);">
+              <span>⚠️ 內部問題分流測試 (ESCALATION TEST)</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <button class="prompt-chip escalate-chip" data-prompt="我的工單 RMA20261108 目前維修進度如何？請問何時會寄出？">
+                <span>🔴</span>
+                <span><strong>內部進度查詢</strong>：RMA-20261108 修到哪一步？何時寄出？</span>
+              </button>
+              <button class="prompt-chip escalate-chip" data-prompt="工控主機板開機無畫面，請問電路圖是哪顆晶片燒掉？可以代換嗎？">
+                <span>🔴</span>
+                <span><strong>晶片電路除錯</strong>：開機點不亮，請問電路圖哪顆 IC 壞了？</span>
+              </button>
+              <button class="prompt-chip escalate-chip" data-prompt="我們公司每年送修超過 1000 台，維修費用可以打折或簽專屬 SLA 嗎？">
+                <span>🔴</span>
+                <span><strong>商務專約協商</strong>：大量送修能否議價折扣或簽 24h 換貨？</span>
+              </button>
+            </div>
+          </div>
+
+          <div style="padding:10px 14px; background:#08101d; border:1px solid var(--card-border); border-radius:6px; font-size:11px; color:var(--text-dim); line-height:1.5;">
+            🔒 <strong>安全宣告</strong>：本 AI 助理嚴格依據官方公開條款進行推論；不蒐集私有憑證，遇到非公開之工單個資或技術機密將主動啟動防護並引導至官方窗口。
+          </div>
+        </div>
+
+        <!-- Right: Interactive Console -->
+        <div class="ai-chat-console">
+          <div class="console-header">
+            <div class="console-title">
+              <span class="status-led"></span>
+              ADVANTECH eRMA POLICY AI TERMINAL // v2.6
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span class="console-status-tag">POLICY ENGINE ACTIVE</span>
+              <button class="btn-ipc" id="btnClearAIChat" style="padding:4px 8px; font-size:11px;">清空對話</button>
+            </div>
+          </div>
+
+          <div class="console-messages" id="aiConsoleMessages">
+            <!-- Initial AI Greeting -->
+            <div class="chat-msg ai">
+              <div class="msg-avatar">AI</div>
+              <div class="msg-content">
+                <div class="chat-bubble">
+                  <div class="ai-badge-header">
+                    <span class="ai-bubble-tag tag-policy">官方公開政策指引模式</span>
+                    <span style="font-size:11px; color:var(--text-dim);">SYSTEM ONLINE</span>
+                  </div>
+                  您好！我是研華科技 eRMA 智能政策諮詢助理。我依據研華全球官方服務與保固政策（Global Service Policy）提供即時條款指引。
+                  <br><br>
+                  您可以向我詢問 <strong>保固期限、DOA 30天換貨、DAP 運費分攤、過保雙十原則與報廢時限、完修保固或 FA 失效分析</strong>。<br>
+                  若您的問題涉及 <strong>內部即時工單進度、深層電路圖晶片除錯或商業折扣談判</strong>，我將自動為您切換至 <strong>客服引導模式</strong> 並協助您生成聯繫信件！
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Input Bar -->
+          <div class="console-input-bar">
+            <input type="text" id="aiUserInput" class="ai-input" placeholder="輸入您的 RMA 政策疑問，或測試內部問題（支援 Enter 送出）..." autocomplete="off">
+            <button id="aiSendBtn" class="ai-send-btn">
+              <span>發送</span>
+              <svg style="width:14px;height:14px;fill:currentColor;" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- Bottom Control Bar -->
@@ -1667,12 +2117,13 @@
         <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
       </button>
       <div class="slide-counter">
-        投影片 <b id="currentSlideNum">01</b> / <span id="totalSlideNum">11</span>
+        投影片 <b id="currentSlideNum">01</b> / <span id="totalSlideNum">12</span>
       </div>
     </div>
 
     <div class="shortcut-hints">
       <span>導覽：<kbd>←</kbd> <kbd>→</kbd> <kbd>Space</kbd></span>
+      <span>AI客服：<kbd>C</kbd></span>
       <span>總覽：<kbd>O</kbd></span>
       <span>全螢幕：<kbd>F</kbd></span>
     </div>
@@ -1794,8 +2245,27 @@
     btnCloseOverview.addEventListener('click', closeOverview);
     btnFullscreen.addEventListener('click', toggleFullscreen);
 
+    const btnAIChat = document.getElementById('btnAIChat');
+    if (btnAIChat) {
+      btnAIChat.addEventListener('click', () => {
+        goToSlide(totalSlides - 1);
+        setTimeout(() => {
+          const inp = document.getElementById('aiUserInput');
+          if (inp) inp.focus();
+        }, 300);
+      });
+    }
+
     // Keyboard Navigation
     window.addEventListener('keydown', (e) => {
+      // Don't trigger slide change when typing in inputs
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        if (e.key === 'Escape') {
+          e.target.blur();
+        }
+        return;
+      }
+
       if (overviewModal.classList.contains('open')) {
         if (e.key === 'Escape' || e.key === 'o' || e.key === 'O') closeOverview();
         return;
@@ -1817,6 +2287,12 @@
         toggleFullscreen();
       } else if (e.key === 'o' || e.key === 'O') {
         openOverview();
+      } else if (e.key === 'c' || e.key === 'C') {
+        goToSlide(totalSlides - 1);
+        setTimeout(() => {
+          const inp = document.getElementById('aiUserInput');
+          if (inp) inp.focus();
+        }, 300);
       }
     });
 
@@ -1936,6 +2412,436 @@
         resActionDesc.textContent = '研華收件後 10 工作天內提供報價，客戶請於 10 工作天內回覆確認。超過 2 個月未付將報廢。';
         return;
       }
+    }
+
+    // ==========================================
+    // Slide 12: Advantech eRMA AI Customer Service & Escalation Engine
+    // ==========================================
+    const RMA_OFFICIAL_EMAIL = 'rma.service@advantech.com';
+    const aiConsoleMessages = document.getElementById('aiConsoleMessages');
+    const aiUserInput = document.getElementById('aiUserInput');
+    const aiSendBtn = document.getElementById('aiSendBtn');
+    const btnClearAIChat = document.getElementById('btnClearAIChat');
+
+    const INITIAL_AI_GREETING = `
+      <div class="chat-msg ai">
+        <div class="msg-avatar">AI</div>
+        <div class="msg-content">
+          <div class="chat-bubble">
+            <div class="ai-badge-header">
+              <span class="ai-bubble-tag tag-policy">官方公開政策指引模式</span>
+              <span style="font-size:11px; color:var(--text-dim);">SYSTEM ONLINE</span>
+            </div>
+            您好！我是研華科技 eRMA 智能政策諮詢助理。我依據研華全球官方服務與保固政策（Global Service Policy）提供即時條款指引。
+            <br><br>
+            您可以向我詢問 <strong>保固期限、DOA 30天換貨、DAP 運費分攤、過保雙十原則與報廢時限、完修保固或 FA 失效分析</strong>。<br>
+            若您的問題涉及 <strong>內部即時工單進度、深層電路圖晶片除錯或商業折扣談判</strong>，我將自動為您切換至 <strong>客服引導模式</strong> 並協助您生成聯繫信件！
+          </div>
+        </div>
+      </div>
+    `;
+
+    function evaluateAIQuery(rawQuery) {
+      const q = rawQuery.toLowerCase().trim();
+
+      // Category 1: Internal Issue - Real-time Ticket Progress / Logistics status
+      const hasTicketKeyword = /rma[-_\s]?[0-9a-z]{3,}|工單|單號|報修單|序號/.test(q);
+      const hasProgressKeyword = /進度|修到|哪一步|何時|出貨|寄出|好了沒|卡住|延誤|延遲|進展|追蹤|查|status|tracking|何時好/.test(q);
+      if ((hasTicketKeyword && hasProgressKeyword) || (q.includes('進度') && (q.includes('rma') || q.includes('工單') || q.includes('維修')))) {
+        const rmaMatch = rawQuery.match(/RMA[-_\s]?[0-9A-Za-z]+/i);
+        const detectedRMA = rmaMatch ? rmaMatch[0].toUpperCase() : '（請填寫您的工單號）';
+        
+        const mailSubject = encodeURIComponent(`【工單進度查詢】RMA號碼: ${detectedRMA}`);
+        const mailBody = encodeURIComponent(
+`研華 eRMA 維修客服中心 您好：
+
+我想查詢以下維修案件的即時進度與預計完修/出貨時間：
+- RMA 工單編號：${detectedRMA}
+- 產品序號 (S/N)：
+- 客戶公司名稱：
+- 詢問事項 / 特殊急件說明：
+
+懇請協助調閱內部工單系統並更新最新狀態，謝謝！`
+        );
+
+        return {
+          type: 'escalation',
+          categoryTag: '⚠️ 需人工客服介入 · 內部工單追蹤',
+          badgeClass: 'tag-escalate',
+          title: '內部 ERP / MES 即時工單進度查詢',
+          answerHtml: `
+            <p><strong>【系統權限保護提示】</strong></p>
+            <p>您好！本 AI 助理係依據研華<strong>《全球公開服務與保固政策（Global Service Policy）》</strong>提供條款指引。</p>
+            <p style="margin-top:6px;">為嚴格維護客戶隱私與企業資訊安全，本公開端<strong>無權限存取研華內部 ERP / MES 工單排修數據庫、倉儲出入庫即時日誌或貨運物流追蹤碼</strong>，因此無法直接為您回傳該單號的當前即時進度。</p>
+            <div style="margin-top:8px; padding:8px 10px; background:#08101d; border-radius:4px; font-size:12px;">
+              ⏱ <strong>官方政策標準時效參考：</strong><br>
+              • 收到實體貨品後 <strong>10 個工作天內</strong> 出具檢測結果/報價單。<br>
+              • 客戶確認簽回或保內排修，標準週轉時間 (TAT) 約 10~14 工作天（視特殊料件庫存而定）。
+            </div>
+          `,
+          escalation: {
+            title: '請透過研華專屬維修客服窗口調閱內部工單：',
+            detail: `檢測到您的諮詢單號：<code style="color:var(--accent-cyan); font-weight:700;">${detectedRMA}</code>。請點擊下方按鈕直接寄信至官方客服信箱，客服人員將為您調閱內部系統進度。`,
+            mailUrl: `mailto:${RMA_OFFICIAL_EMAIL}?subject=${mailSubject}&body=${mailBody}`,
+            copyText: `敬啟者 / 研華 eRMA 客服團隊：\n\n您好，我想查詢 RMA 工單進度：\n- RMA 單號：${detectedRMA}\n- 產品序號 (S/N)：\n- 公司名稱：\n- 需求說明：欲查詢目前維修進度與預計出貨日。\n\n盼請協助調閱內部系統回覆，謝謝！`
+          }
+        };
+      }
+
+      // Category 2: Internal Issue - Chip / Schematics / Deep Hardware Engineering
+      if (/電路圖|原理圖|晶片|\bic\b|電容|電阻|更換晶片|晶片燒|燒錄器|bios\s?燒錄|焊點|焊線|跳線|替代料|針腳|pinout|schematic|circuit|零件代換|點不亮換哪顆|主板燒/.test(q)) {
+        const mailSubject = encodeURIComponent(`【技術支援諮詢】工控硬體電路與技術疑難諮詢`);
+        const mailBody = encodeURIComponent(
+`研華技術支援中心 (FAE / Tech Support) 您好：
+
+我們在現場使用研華工控硬體遇到技術疑難，欲諮詢專業工程支援：
+- 產品型號：
+- 序號 (S/N)：
+- 故障現象與測試環境：
+- 諮詢具體技術細節：
+
+請工程技術團隊協助評估，謝謝！`
+        );
+
+        return {
+          type: 'escalation',
+          categoryTag: '⚠️ 需工程技術介入 · 硬體 FAE 支援',
+          badgeClass: 'tag-escalate',
+          title: '深層硬體工程與電路技術諮詢',
+          answerHtml: `
+            <p><strong>【專有技術保護與除外警示】</strong></p>
+            <p>工控主機板之電路原理圖（Schematics）、內部 ASIC/微控制器晶片規格及微架構屬於研華專有技術資產與營業機密，未公開於一般保固政策中。</p>
+            <p style="margin-top:6px; color:var(--accent-orange);">
+              ⚠️ <strong>重要破保條款提醒（政策第 3.2 條）：</strong><br>
+              嚴禁客戶或未授權第三方私自對主機板進行解焊、跳線、更換晶片或非原廠零件，一旦發現將導致<strong>原廠保固立即作廢（Warranty Void）</strong>！
+            </p>
+            <div style="margin-top:8px; padding:8px 10px; background:#08101d; border-radius:4px; font-size:12px;">
+              🛠 <strong>現場建議初步檢查指引：</strong><br>
+              1. 檢查 ATX / 12~24V DC 輸入電壓穩定度與接地。<br>
+              2. 移除外接擴充卡（PCIe、外接模組），進行最小系統開機測試。<br>
+              3. 清除 CMOS 或更換鈕扣電池後重試。<br>
+              4. 若為硬體損毀，請依標準流程申請 RMA 送回維修中心進行專業檢測。
+            </div>
+          `,
+          escalation: {
+            title: '如需深入硬體除錯或工程評估，請洽研華技術支援（FAE）：',
+            detail: '涉及電路設計、原廠 BIOS 救援或客製化韌體問題，建議聯繫研華全球技術服務團隊。',
+            mailUrl: `mailto:${RMA_OFFICIAL_EMAIL}?subject=${mailSubject}&body=${mailBody}`,
+            copyText: `敬啟者 / 研華技術服務中心：\n\n您好，我們在現場遇到工控硬體疑難需工程諮詢：\n- 產品型號：\n- 序號 (S/N)：\n- 故障症狀：開機點不亮 / 電路異常\n\n請協助提供技術支援，謝謝！`
+          }
+        };
+      }
+
+      // Category 3: Commercial Negotiation / Custom SLA / Volume Discount
+      if (/打折|折扣|便宜|降價|議價|特約|大量|幾百台|上千台|年約|sla|合約|簽約|專約/.test(q)) {
+        return {
+          type: 'escalation',
+          categoryTag: '⚠️ 需業務代表接洽 · 專案商務協商',
+          badgeClass: 'tag-escalate',
+          title: '大量返修專案議價與加值服務 (AGS) 諮詢',
+          answerHtml: `
+            <p><strong>【公開政策費率與專案特約說明】</strong></p>
+            <p>本簡報所載政策為研華全球標準 eRMA 規範與標準費率。若貴司有批次專案、年度維護合約，或需要更嚴格之時效保障（如 24~48 小時備品交換、專屬維修料件庫存池），標準公開條款無法直接約定客製條件。</p>
+            <p style="margin-top:6px;">
+              研華提供 <strong>「AGS 加值服務包 (Advantech Global Services - Value-Added Service Pack)」</strong>，可針對企業客戶提供客製化延長保固與專屬 SLA 方案。
+            </p>
+          `,
+          escalation: {
+            title: '商務折扣與專屬合約請洽所屬業務代表或 AGS 專案：',
+            detail: '專案合約審核需由研華業務專員與售後服務主管個別評估報價。',
+            mailUrl: `mailto:${RMA_OFFICIAL_EMAIL}?subject=${encodeURIComponent('【商務合約諮詢】大量送修與專屬SLA專案需求')}&body=${encodeURIComponent('研華業務與服務團隊您好：\n\n我們有大量工控設備送修/年約維護需求，欲洽詢專案優惠與專屬 SLA 方案：\n- 公司名稱：\n- 年預估返修台數：\n- 需求項目：專案維修合約 / 備品更換 / 延長保固\n\n請指派業務窗口與我們聯繫，謝謝！')}`,
+            copyText: `敬啟者 / 研華業務團隊：\n\n我們有大量工控設備維護需求，欲諮詢專屬合約與優惠：\n- 公司名稱：\n- 預估台數：\n- 需求項目：專案維修 / AGS 延長保固\n\n請指派業務代表與我們接洽，謝謝！`
+          }
+        };
+      }
+
+      // Category 4: DOA Policy & Cross-Shipment
+      if (/doa|新品|到貨不良|換新|cross-shipment|先發後收|30天|30\s?days|剛買/.test(q)) {
+        return {
+          type: 'policy',
+          categoryTag: '官方公開政策 · DOA 政策第 2.2 條',
+          badgeClass: 'tag-policy',
+          title: 'DOA 新品不良判定標準與換貨政策',
+          answerHtml: `
+            <p><strong>【DOA 新品不良的核心認定標準】</strong></p>
+            <ul style="margin:8px 0; padding-left:18px; line-height:1.7;">
+              <li><strong>時效門檻</strong>：自研華出貨日起 <strong>30 天內</strong> 發現產品發生功能性不良（Non-functionality）。</li>
+              <li><strong>除外責任</strong>：運送過程中所造成之外觀擠壓損壞<strong>不屬於 DOA</strong>，應循貨運保險索賠。</li>
+              <li><strong>處理機制 (Cross-Shipment)</strong>：享有優先先寄送良品替換（先發後收）或最高優先序特急修復。</li>
+              <li><strong>運費分擔</strong>：<strong>研華全額承擔</strong> 從客戶現場至授權維修中心間之<strong>雙向來回運費</strong>！</li>
+            </ul>
+            <p style="font-size:12px; color:var(--text-sub);">💡 建議送修時使用防靜電（ESD）包裝，外箱以大字粗體註記 RMA 單號，以利收件快速通關。</p>
+          `
+        };
+      }
+
+      // Category 5: Out of Warranty / Scrap Timelines / 10 Workdays
+      if (/過保|收費|費用|多少錢|報價|雙十|10天|工作天|報廢|銷毀|scrap|2個月|3個月|保管|npf|沒壞|無故障/.test(q)) {
+        return {
+          type: 'policy',
+          categoryTag: '官方公開政策 · 維修收費與時限第 4.3/4.4 條',
+          badgeClass: 'tag-policy',
+          title: '過保收費標準、雙十原則與報廢處置時限',
+          answerHtml: `
+            <p><strong>【過保收費與處置四大原則】</strong></p>
+            <ul style="margin:8px 0; padding-left:18px; line-height:1.7;">
+              <li><strong>收費項目</strong>：包含基本檢修工時費與更換零件材料費。若檢驗判定為無故障（<strong>NPF</strong>, No Problem Found），仍須收取標準測試校驗費用。</li>
+              <li><strong>雙十原則（報價與確認）</strong>：
+                <br>• 研華收到實體貨品後 <strong>10 個工作天內出具維修報價單</strong>。
+                <br>• 客戶接獲報價單後，須於 <strong>10 個工作天內回覆同意或放棄</strong>。
+              </li>
+              <li><strong>滿 2 個月逕行報廢銷毀</strong>：期間研華提供至少 2 次催告與 1 次最終通知；若<strong>屆滿 2 個月仍未獲回覆</strong>，研華得<strong>不另通知直接進行報廢銷毀</strong>。</li>
+              <li><strong>最長保管上限</strong>：待預付款或待回覆之貨件，研華最長保管 <strong>3 個月</strong>，逾期視同放棄所有權。</li>
+              <li><strong>運費責任</strong>：過保件之<strong>雙向來回運費一律由客戶全額負擔</strong>。</li>
+            </ul>
+          `
+        };
+      }
+
+      // Category 6: Post-repair Warranty & FA (Failure Analysis) Report
+      if (/完修|重複故障|相同故障|3個月|三個月|fa|失效分析|root\s?cause|根本原因|報告/.test(q)) {
+        return {
+          type: 'policy',
+          categoryTag: '官方公開政策 · 完修保固與 FA 報告第 4.3 條',
+          badgeClass: 'tag-policy',
+          title: '完修再發保固與失效分析報告 (FA) 責任歸屬',
+          answerHtml: `
+            <p><strong>【完修保障與 FA 申請重點】</strong></p>
+            <ul style="margin:8px 0; padding-left:18px; line-height:1.7;">
+              <li><strong>完修後 3 個月相同故障免費保固</strong>：產品經研華完修出廠後，<strong>若於 3 個月內再次發生「相同故障現象」</strong>，研華無償負責再次修復（人為損壞與改裝除外）。</li>
+              <li><strong>標準維修報告 (Repair Report)</strong>：每筆返修工單完修後，均免費隨附標準報告（記錄檢測結果與更換零件）。</li>
+              <li><strong>失效分析報告 (FA Report)</strong>：若需追查深層根本原因（Root Cause），可專案提出申請，研華保留評估是否受理權利。</li>
+              <li><strong>⚠️ FA 費用重要條款</strong>：經深入實驗室調查後，<strong>若判定根本原因「與研華產品設計或製程品質無關」</strong>（例如客戶外部電源突波擊穿、現場不當環境），<strong>研華將向申請客戶全額收取調查分析技術服務費！</strong></li>
+            </ul>
+          `
+        };
+      }
+
+      // Category 7: Logistics, Shipping DAP Terms & Customs Invoice
+      if (/運費|dap|誰付|物流|報關|invoice|發票|esd|靜電|包裝|箱外|coo|原產地/.test(q)) {
+        return {
+          type: 'policy',
+          categoryTag: '官方公開政策 · 物流條款第 2.2 / 4.5 條',
+          badgeClass: 'tag-policy',
+          title: '返修物流 DAP 運費分擔與海關 Invoice 指引',
+          answerHtml: `
+            <p><strong>【國際物流與包裝規範】</strong></p>
+            <ul style="margin:8px 0; padding-left:18px; line-height:1.7;">
+              <li><strong>標準保固期內運費分攤（DAP 條款）</strong>：
+                <br>• 客戶負責：負擔將不良品寄送至研華授權維修中心之運費。
+                <br>• 研華負責：負擔修復完成後寄回客戶端之運費。
+              </li>
+              <li><strong>DOA 新品不良</strong>：研華全額吸收雙向來回運費。</li>
+              <li><strong>過保或除外品</strong>：客戶全額負擔雙向來回運費。</li>
+              <li><strong>報關 Invoice 四要素</strong>：跨國維修件需註明「No Commercial Value (無商業價值)」、「For Repair Purpose Only (僅供維修)」、合理低申報價值、產品序號 (S/N) 與原產地 (COO)。</li>
+              <li><strong>包裝規範</strong>：務必使用防靜電袋 (ESD) 包覆，並於外箱以大字粗體標示 <code>RMA: XXXXXXXX</code>。</li>
+            </ul>
+          `
+        };
+      }
+
+      // Category 8: Exclusions & Warranty Void
+      if (/除外|破保|保固失效|標籤|撕毀|改裝|泡水|雷擊|天災|腐蝕|void|外力/.test(q)) {
+        return {
+          type: 'policy',
+          categoryTag: '官方公開政策 · 除外責任條款第 3 條',
+          badgeClass: 'tag-policy',
+          title: '保固排除（Warranty Exclusions）與破保認定標準',
+          answerHtml: `
+            <p><strong>【依官方政策第 3 條，下列情事將排除於保固之外】</strong></p>
+            <ol style="margin:8px 0; padding-left:18px; line-height:1.7;">
+              <li><strong>過保故障</strong>：產品已超過保固期限。</li>
+              <li><strong>私自改裝或標籤損毀</strong>：經客戶或第三方未授權拆裝升級、或識別序號標籤撕毀、塗改或無法辨識（保固立即作廢 Void）。</li>
+              <li><strong>人為不當操作</strong>：人為疏失、不當環境、受潮腐蝕、未依手冊操作或不可歸責於研華之事故。</li>
+              <li><strong>不可抗力之重大天災</strong>：雷擊、水災、地震等重大天災致硬體損毀無法修復。</li>
+            </ol>
+            <p style="font-size:12px; color:var(--text-sub);">除外責任由研華獨立全權判定；符合除外情事之維修將轉為自費報價或判定報廢。</p>
+          `
+        };
+      }
+
+      // Category 9: General Pre-repair Checklist
+      if (/送修|準備|流程|步驟|備份|拆|記憶體|硬碟|cpu|ram|checklist|防呆/.test(q)) {
+        return {
+          type: 'policy',
+          categoryTag: '官方公開政策 · 送修防呆作業指引',
+          badgeClass: 'tag-policy',
+          title: '工業電腦返修前防呆 Check-list',
+          answerHtml: `
+            <p><strong>【返修前請依序核對以下五大項目】</strong></p>
+            <ul style="margin:8px 0; padding-left:18px; line-height:1.7;">
+              <li>☑ <strong>已取得有效 RMA 單號</strong>：至研華 eRMA 線上申請，嚴禁無單據私自寄送。</li>
+              <li>☑ <strong>整機序號核對</strong>：即便利退部分組件，整機外殼 S/N 必須留存並填入單據。</li>
+              <li>☑ <strong>拆除非原廠自購配件</strong>：自行加裝之 CPU、RAM、CF 卡已拔除（若附送已在單據註記）。</li>
+              <li>☑ <strong>機密資料備份</strong>：儲存媒體（HDD/SSD）已完整備份，研華不負擔系統資料遺失責任。</li>
+              <li>☑ <strong>ESD 防護與外箱粗體標註</strong>：使用防靜電袋包裝，外箱以大字粗體標記 <code>RMA: XXXXXXXX</code>。</li>
+            </ul>
+          `
+        };
+      }
+
+      // Default Fallback
+      return {
+        type: 'policy',
+        categoryTag: '官方公開政策 · 綜合條款指引',
+        badgeClass: 'tag-policy',
+        title: '研華 eRMA 全球服務與保固政策總覽',
+        answerHtml: `
+          <p>您好！我能為您解答研華科技官方公開之 <strong>eRMA 全球服務與保固政策</strong>（依據 <code style="color:var(--accent-cyan);">erma.advantech.com.tw</code> 公開條款）。</p>
+          <p style="margin-top:6px;">您可以點選左側的快捷標籤，或直接詢問：</p>
+          <ul style="margin:6px 0; padding-left:18px; line-height:1.6; font-size:12px;">
+            <li>• <strong>「DOA 條件與換貨政策」</strong>（30天內功能不良、Cross-Shipment、研華吸收雙向運費）</li>
+            <li>• <strong>「過保收費與雙十原則」</strong>（10天報價、10天回覆、2個月未回覆報廢銷毀）</li>
+            <li>• <strong>「完修保固與 FA 報告」</strong>（完修3個月相同故障免費、FA 非研華責任收費）</li>
+            <li>• <strong>「國際運送 DAP 條款」</strong>（保內各付一程、外箱註記 RMA 單號）</li>
+          </ul>
+          <p style="margin-top:6px; font-size:12px; color:var(--text-sub);">
+            💡 若您需要查詢 <strong>「特定 RMA 單號即時維修進度」</strong> 或 <strong>「深層電路圖晶片工程問題」</strong>，請輸入單號或晶片問題，我將為您啟動客服升級引導！
+          </p>
+        `
+      };
+    }
+
+    function appendUserMsg(text) {
+      if (!aiConsoleMessages) return;
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-msg user';
+      msgDiv.innerHTML = `
+        <div class="msg-avatar">YOU</div>
+        <div class="msg-content">
+          <div class="chat-bubble">${escapeHtml(text)}</div>
+        </div>
+      `;
+      aiConsoleMessages.appendChild(msgDiv);
+      aiConsoleMessages.scrollTop = aiConsoleMessages.scrollHeight;
+    }
+
+    function appendAIMsg(res) {
+      if (!aiConsoleMessages) return;
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'chat-msg ai';
+
+      let escalationHtml = '';
+      if (res.escalation) {
+        escalationHtml = `
+          <div class="escalation-box">
+            <div class="escalation-header">
+              <svg style="width:16px;height:16px;fill:currentColor;" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+              <span>${res.escalation.title}</span>
+            </div>
+            <div style="font-size:12px; color:var(--text-sub); line-height:1.5;">
+              ${res.escalation.detail}
+            </div>
+            <div class="escalation-actions">
+              <a href="${res.escalation.mailUrl}" class="btn-action-mail" target="_blank">
+                <svg style="width:14px;height:14px;fill:currentColor;" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                點擊一鍵寄信至客服窗口
+              </a>
+              <button class="btn-action-copy" onclick="window.copyEscalationDraft(${JSON.stringify(res.escalation.copyText).replace(/"/g, '&quot;')})">
+                <svg style="width:14px;height:14px;fill:currentColor;" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                複製信件詢問範本
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      msgDiv.innerHTML = `
+        <div class="msg-avatar">AI</div>
+        <div class="msg-content">
+          <div class="chat-bubble">
+            <div class="ai-badge-header">
+              <span class="ai-bubble-tag ${res.badgeClass}">${res.categoryTag}</span>
+              <span style="font-size:11px; color:var(--text-dim); font-family:var(--mono-font);">${res.title}</span>
+            </div>
+            ${res.answerHtml}
+            ${escalationHtml}
+          </div>
+        </div>
+      `;
+      aiConsoleMessages.appendChild(msgDiv);
+      aiConsoleMessages.scrollTop = aiConsoleMessages.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+      if (!aiConsoleMessages) return;
+      const indicator = document.createElement('div');
+      indicator.className = 'chat-msg ai typing-indicator-item';
+      indicator.id = 'aiTypingIndicator';
+      indicator.innerHTML = `
+        <div class="msg-avatar">AI</div>
+        <div class="msg-content">
+          <div class="chat-bubble" style="display:flex; align-items:center; gap:4px; padding:10px 14px;">
+            <span style="font-size:12px; color:var(--accent-cyan); font-family:var(--mono-font);">AI 推論條款與分流中...</span>
+          </div>
+        </div>
+      `;
+      aiConsoleMessages.appendChild(indicator);
+      aiConsoleMessages.scrollTop = aiConsoleMessages.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      const el = document.getElementById('aiTypingIndicator');
+      if (el) el.remove();
+    }
+
+    function handleAISend() {
+      if (!aiUserInput) return;
+      const text = aiUserInput.value.trim();
+      if (!text) return;
+      aiUserInput.value = '';
+
+      appendUserMsg(text);
+      showTypingIndicator();
+
+      setTimeout(() => {
+        removeTypingIndicator();
+        const reply = evaluateAIQuery(text);
+        appendAIMsg(reply);
+      }, 300);
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    window.copyEscalationDraft = function(draftText) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(draftText).then(() => {
+          alert('✅ 已成功複製信件詢問範本至剪貼簿！');
+        }).catch(() => {
+          prompt('請手動複製信件範本：', draftText);
+        });
+      } else {
+        prompt('請手動複製信件範本：', draftText);
+      }
+    };
+
+    if (aiSendBtn && aiUserInput) {
+      aiSendBtn.addEventListener('click', handleAISend);
+      aiUserInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleAISend();
+        }
+      });
+    }
+
+    // Bind Quick Prompts
+    document.querySelectorAll('.prompt-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const prompt = chip.dataset.prompt;
+        if (prompt && aiUserInput) {
+          aiUserInput.value = prompt;
+          handleAISend();
+        }
+      });
+    });
+
+    if (btnClearAIChat && aiConsoleMessages) {
+      btnClearAIChat.addEventListener('click', () => {
+        aiConsoleMessages.innerHTML = INITIAL_AI_GREETING;
+      });
     }
 
     // Init UI
