@@ -422,6 +422,239 @@
       font-weight: 500;
     }
 
+    .live-demo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-light);
+      border: 1px solid rgba(37, 99, 235, 0.25);
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-decoration: none;
+      margin-left: 6px;
+      transition: all 0.2s;
+      vertical-align: middle;
+    }
+    .live-demo-badge:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .project-card-featured {
+      border-color: rgba(37, 99, 235, 0.4);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+      position: relative;
+    }
+    [data-theme="dark"] .project-card-featured {
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .project-status-badge {
+      font-size: 10px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      background: #10b981;
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .btn-embed-toggle {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 6px 13px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+    }
+    .btn-embed-toggle:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-external-link {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-sub);
+      text-decoration: none;
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    .btn-external-link:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    /* Embedded Project Browser Mockup */
+    .project-embed-wrapper {
+      margin-top: 24px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #080e1a;
+      box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.25), 0 8px 16px -6px rgba(0, 0, 0, 0.15);
+      animation: fadeInSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .embed-browser-bar {
+      background: #1e293b;
+      padding: 9px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-wrap: wrap;
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot-red { background: #ef4444; cursor: pointer; transition: transform 0.15s; }
+    .dot-red:hover { transform: scale(1.15); }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+
+    .browser-address {
+      flex: 1;
+      min-width: 200px;
+      max-width: 440px;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 11.5px;
+      color: #94a3b8;
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .browser-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-browser-tool {
+      background: rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 5px;
+      padding: 5px 11px;
+      font-size: 11px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .btn-browser-tool:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+
+    .btn-browser-tool.btn-highlight {
+      background: #0284c7;
+      color: #fff;
+      border-color: #38bdf8;
+      font-weight: 600;
+    }
+    .btn-browser-tool.btn-highlight:hover {
+      background: #0369a1;
+    }
+
+    .btn-browser-tool.btn-close {
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+      border-color: rgba(239, 68, 68, 0.4);
+    }
+    .btn-browser-tool.btn-close:hover {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    .iframe-container {
+      position: relative;
+      width: 100%;
+      height: 650px;
+      background: #030712;
+    }
+
+    .project-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .embed-footer-hint {
+      background: #0f172a;
+      padding: 9px 16px;
+      font-size: 11.5px;
+      color: #94a3b8;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      line-height: 1.6;
+    }
+    .embed-footer-hint strong {
+      color: #e2e8f0;
+    }
+
     /* Education & Languages Row */
     .edu-lang-row {
       display: grid;
@@ -481,7 +714,7 @@
         padding: 0 !important;
       }
 
-      .action-bar, .no-print {
+      .action-bar, .no-print, .project-embed-wrapper, .project-actions, .live-demo-badge {
         display: none !important;
       }
 
@@ -656,6 +889,7 @@
           <ul class="job-achievements">
             <li><strong>跨部門瓶頸協調與時效掌控</strong>：管理全球月均數百件 RMA 退修工單，涵蓋標準件（IN-STD）與 SLA 關鍵客戶急件。密切橫向協調維修工程（L1-L4）、工廠產線（Tested by Factory）與物料計畫端，主動排解缺料（Waiting Parts）與產能瓶頸，嚴控週轉時效（TAT / MTTR）。</li>
             <li><strong>自主開發「維修案件全自動整理系統」（Python + Streamlit）</strong>：針對每日大量工單核對繁瑣、格式斷層之痛點，自主撰寫 Python 程式並搭建 Streamlit 互動儀表板，自動清洗資料並標記料號、條碼與保固異常；產出一鍵啟動檔（.bat）及圖文 SOP 賦能同仁，將每日人工整理工時<strong>大幅縮減 70% 以上</strong>，杜絕人為謄寫疏漏。</li>
+            <li><strong>主導開發「動態 eRMA 政策互動簡報與 AI 客服分流系統」</strong>：針對全球客戶對 RMA 政策、保固期限、DOA 條件、DAP 運費責任及過保報廢時效等大量重複性基礎諮詢，自主開發 12 頁純扁平圖表動態互動簡報，並於尾端整合「AI 客服終端機」。透過純前端 NLP 意圖分析提供即時政策答覆與判斷，並能智慧辨識內部機密與複雜問題（如即時工單進度、深層晶片電路除錯）自動升級引導至專屬客服窗口信箱。<strong>成功實現第一線基礎提問初步答覆自動化，大幅減少客服部門在回覆常態問題之心力，使團隊得以全神專注（Focus）於非常規、高爭議案件排除與關鍵客戶關係經營（CRM）</strong>。<a href="https://connielll.github.io/advantech-erma-presentation/" target="_blank" class="live-demo-badge">🖥️ 線上作品展示 ↗</a></li>
             <li><strong>AI 輔助維修數據洞察與決策</strong>：運用 GenAI 技術建立「RMA 智慧分析模型」，快速抓取未達標案件之根因標記，提早發掘工廠產能塞車與長天數滯留案件，促進服務中心與品保（DQA）之品質閉環改善（CAPA）。</li>
             <li><strong>逆向物流與商務關務管理</strong>：執行跨國退換貨授權、預先換貨（Advance Replacement）、Incoterms DAP 雙向運費責任界定與海關報關發票審查，妥善化解客戶爭議。</li>
           </ul>
@@ -739,20 +973,32 @@
           </div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card project-card-featured">
           <div class="project-top">
             <div class="project-title">
-              <span>工控 eRMA 政策互動簡報</span>
-              <a href="https://connielll.github.io/advantech-erma-presentation/" target="_blank" style="font-size:12px; color:var(--primary); text-decoration:none;">線上預覽 ↗</a>
+              <span>工控 eRMA 政策互動簡報 &amp; AI 客服終端機</span>
+              <span class="project-status-badge">LIVE DEMO</span>
             </div>
             <p class="project-desc">
-              系統化梳理工業電腦 eRMA 全球保固、DOA 30天快速調撥、DAP 運費責任與失效分析規範。設計獨立免相依之現代化全 HTML 互動簡報，內建即時決策判定機。
+              自主研發 12 頁純扁平現代化 HTML 工業電腦 eRMA 全球服務政策簡報，於第 12 頁深度整合「AI 客服終端機」。透過純前端 NLP 意圖辨識引擎，自主處理 DOA、DAP 運費與過保時程等常規提問，並智慧分流內部複雜工單至客服窗口信箱，為客服部門節省大量常規諮詢成本。
             </p>
+            <div class="project-actions">
+              <button type="button" class="btn-embed-toggle" id="btnToggleEmbed" onclick="toggleProjectEmbed()">
+                <span>👁️</span> 履歷內即時預覽體驗
+              </button>
+              <a href="https://connielll.github.io/advantech-erma-presentation/" target="_blank" class="btn-external-link">
+                全螢幕開啟 ↗
+              </a>
+              <a href="https://connielll.github.io/advantech-erma-presentation/?slide=12" target="_blank" class="btn-external-link">
+                🤖 直達 Slide 12 AI 客服 ↗
+              </a>
+            </div>
           </div>
           <div class="project-tech">
-            <span>HTML5</span>
-            <span>Modern CSS</span>
+            <span>HTML5 / CSS3</span>
             <span>Vanilla JS</span>
+            <span>NLP Intent Engine</span>
+            <span>AI Console UI</span>
             <span>GitHub Pages</span>
           </div>
         </div>
@@ -774,6 +1020,33 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- Interactive Project Embed Container (Collapsible) -->
+      <div id="projectEmbedBox" class="project-embed-wrapper" style="display: none;">
+        <div class="embed-browser-bar">
+          <div class="browser-dots">
+            <span class="dot dot-red" onclick="toggleProjectEmbed()" title="關閉預覽"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="browser-address">
+            <span class="lock-icon">🔒</span>
+            <span class="address-url">https://connielll.github.io/advantech-erma-presentation/</span>
+          </div>
+          <div class="browser-tools">
+            <button type="button" class="btn-browser-tool" onclick="reloadProjectIframe()" title="重新載入">🔄 重新整理</button>
+            <a href="https://connielll.github.io/advantech-erma-presentation/?slide=12" target="_blank" class="btn-browser-tool btn-highlight" title="直接前往第 12 頁 AI 客服終端機">🤖 體驗 AI 客服 ↗</a>
+            <a href="https://connielll.github.io/advantech-erma-presentation/" target="_blank" class="btn-browser-tool" title="在新分頁全螢幕開啟">全螢幕開啟 ↗</a>
+            <button type="button" class="btn-browser-tool btn-close" onclick="toggleProjectEmbed()" title="收起預覽">✕ 收起</button>
+          </div>
+        </div>
+        <div class="iframe-container">
+          <iframe id="projectIframe" class="project-iframe" src="" title="Advantech eRMA Presentation Demo" loading="lazy"></iframe>
+        </div>
+        <div class="embed-footer-hint">
+          💡 <strong>面試官體驗指引</strong>：您可直接在上方視窗點擊切換 12 頁簡報、體驗第 10 頁「互動決策矩陣」或第 12 頁「AI 客服終端機」（可測試詢問 DOA 條件、運費分擔或輸入特定 RMA 單號測試自動升級引導）。若需全螢幕檢視，請點擊上方「全螢幕開啟 ↗」。
+        </div>
       </div>
     </section>
 
@@ -839,6 +1112,42 @@
     });
 
     applyTheme();
+
+    // Project Embed Box Toggle & Reload
+    function toggleProjectEmbed() {
+      const box = document.getElementById('projectEmbedBox');
+      const iframe = document.getElementById('projectIframe');
+      const btn = document.getElementById('btnToggleEmbed');
+      if (!box || !iframe) return;
+
+      const isHidden = box.style.display === 'none' || box.style.display === '';
+      if (isHidden) {
+        box.style.display = 'block';
+        if (!iframe.src || iframe.src === 'about:blank' || iframe.src === window.location.href) {
+          iframe.src = '../index.html';
+        }
+        if (btn) {
+          btn.innerHTML = '<span>✕</span> 收起即時預覽';
+          btn.style.background = '#64748b';
+        }
+        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        box.style.display = 'none';
+        if (btn) {
+          btn.innerHTML = '<span>👁️</span> 履歷內即時預覽體驗';
+          btn.style.background = '';
+        }
+      }
+    }
+
+    function reloadProjectIframe() {
+      const iframe = document.getElementById('projectIframe');
+      if (iframe) {
+        const cur = iframe.src || '../index.html';
+        iframe.src = 'about:blank';
+        setTimeout(() => { iframe.src = cur; }, 80);
+      }
+    }
   </script>
 </body>
 </html>

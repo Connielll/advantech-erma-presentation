@@ -2844,6 +2844,19 @@
       });
     }
 
+    // URL Parameter & Hash navigation support (?slide=12 or #ai or #slide12)
+    const urlParams = new URLSearchParams(window.location.search);
+    const slideParam = urlParams.get('slide');
+    const hash = window.location.hash.toLowerCase();
+    if (slideParam) {
+      const targetIdx = parseInt(slideParam, 10) - 1;
+      if (!isNaN(targetIdx) && targetIdx >= 0 && targetIdx < totalSlides) {
+        currentIdx = targetIdx;
+      }
+    } else if (hash === '#ai' || hash === '#slide12' || hash === '#terminal') {
+      currentIdx = totalSlides - 1;
+    }
+
     // Init UI
     updateSlideUI();
     evaluateRMARules();
